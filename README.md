@@ -33,6 +33,12 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
   Sneaking around in Minecraft holding Shift while typing, and accidentally producing `JI#CL#`, crashing the translation? We thought of that too! A built-in Shift decoder runs in the background. Whether numbers turned into special symbols or cases got messed up, they are automatically restored to their rightful places!
 * 🔠 **Full-Width Character Dimensional Strike**
   Even if your keyboard goes haywire and you type a massive full-width `ｊｉ３`, it silently crushes it into half-width in the background and precisely spoon-feeds you the `ㄨㄛˇ`!
+* ⚡ **Rapid-Typing Early/Inverted Tone Correction**
+  Typing too fast and accidentally hitting the tone key before the vowel? For example, typing "I love you" (`ji394su3`) as `ji394s3u` (pressing `3` before `u`), or typing `5k4g4u6ek7` as `5k4g46uek7` (pressing `6` before `u`), causing the entire translation to fail?
+  We've got you covered! The mod includes an intelligent syllable reordering engine (`fixInvertedTone`):
+  - **Structure-Aware Reordering**: On standard DaChen keyboard layouts, each key's role is strictly defined (Initial, Medial, Final, Tone). When the parser detects an inverted sequence like `[Initial] + [Tone] + [Medial/Final]` (e.g. `s3u` -> `su3`, `148` -> `184`, `2u3l` -> `2ul3`), it automatically shifts the premature tone back to the end of the syllable.
+  - **Zero-Initial Support**: Handles vowel-only syllables (e.g. `6u` -> `u6` for "一", `49` -> `94` for "愛") even in continuous typing without spaces like `5k4g46uek7` -> `5k4g4u6ek7`.
+  - **Collision-Safe via Negative Lookahead**: Uses `(?![3467])` lookaheads to ensure the tone is only shifted when the following vowel doesn't already have its own tone, completely preventing false positives across adjacent words.
 
 ---
 
