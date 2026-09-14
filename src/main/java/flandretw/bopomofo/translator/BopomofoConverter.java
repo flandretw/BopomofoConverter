@@ -98,6 +98,7 @@ public class BopomofoConverter {
 
         String normalized = normalizeFullWidth(originalText);
         String text = unShift(normalized).toLowerCase();
+        text = fixInvertedTone(text);
 
         boolean hasBopomofoIndicator = text.matches(".*[0-9,\\.\\/;\\-].*");
         if (STRICT_PATTERN.matcher(text).matches() && (hasBopomofoIndicator || text.length() > 1)) {
@@ -215,6 +216,42 @@ public class BopomofoConverter {
         return new String(chars);
     }
 
+
+    private static String fixInvertedTone(String text) {
+        if (text == null || text.length() < 2) return text;
+
+        String initials = "1qaz2wsxedcrfv5tgbyhn";
+        String medials = "ujm";
+        String finals = "8ik,9ol\\.0p;\\/\\-";
+        String tones = "3467";
+        String notTone = "(?![" + tones + "])";
+
+        // 1. Initial + Tone + Medial + optional Final (e.g. s3u -> su3, 23ul -> 2ul3)
+        text = Pattern.compile("([" + initials + "])([" + tones + "])([" + medials + "])([" + finals + "]?)" + notTone)
+                .matcher(text).replaceAll("$1$3$4$2");
+
+        // 2. Initial + Tone + Final (e.g. 148 -> 184, g4/ -> g/4)
+        text = Pattern.compile("([" + initials + "])([" + tones + "])([" + finals + "])" + notTone)
+                .matcher(text).replaceAll("$1$3$2");
+
+        // 3. Initial + Medial + Tone + Final (e.g. 2u3l -> 2ul3)
+        text = Pattern.compile("([" + initials + "])([" + medials + "])([" + tones + "])([" + finals + "])" + notTone)
+                .matcher(text).replaceAll("$1$2$4$3");
+
+        // 4. Medial + Tone + Final (e.g. u30 -> u03, j3i -> ji3)
+        text = Pattern.compile("([" + medials + "])([" + tones + "])([" + finals + "])" + notTone)
+                .matcher(text).replaceAll("$1$3$2");
+
+        // 5. Zero-initial syllables with early tone (at start, after space, non-initial, or after preceding tone; e.g. 6u -> u6, 49 -> 94, 5k4g46uek7 -> 5k4g4u6ek7)
+        String prev = "";
+        Pattern p5 = Pattern.compile("(^|[\\s" + tones + "]|[^" + initials + "])([" + tones + "])((?:[" + medials + "][" + finals + "]?)|[" + finals + "])" + notTone);
+        while (!text.equals(prev)) {
+            prev = text;
+            text = p5.matcher(text).replaceAll("$1$3$2");
+        }
+
+        return text;
+    }
 
     private static String translateFully(String text) {
         StringBuilder sb = new StringBuilder();
