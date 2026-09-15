@@ -6,9 +6,10 @@
 
 [English](README.md) | [臺灣正體中文](README-zh_TW.md)
 
-"I can read all the alien gibberish you typed!!"
+> **Disclaimer**  
+> This project was forged using **Gemini "Vibe Coding"**, fueled by AI magic and excessive amounts of digital fries. **Proceed with caution**! If the UI starts dancing or the code looks like a magical incantation, don't worry—it's just the vibe.
 
----
+"I can read all the alien gibberish you typed!!"
 
 ## What is this cool stuff?
 
@@ -22,10 +23,9 @@ It will retain your original text, leaving the social death scene intact for eve
 
 Best of all, **this is a purely client-side mod**. The server requires zero installation or configuration. You install it yourself, and boom—you now have the superpower to decode the entire server's gibberish!
 
-> **Disclaimer**  
-> This project was forged using **Gemini "Vibe Coding"**, fueled by AI magic and excessive amounts of digital fries. **Proceed with caution**! If the UI starts dancing or the code looks like a magical incantation, don't worry—it's just the vibe.
+![In-game chat demonstration showing the mouse cursor hovering over the first part of the gibberish text "zo t;62k7vup vu0", revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄒㄧㄣ ㄒㄧㄢ" meaning "very fresh"](docs/images/very_fresh.png)
 
----
+![In-game chat demonstration showing the mouse cursor hovering over the second part of the gibberish text "zo t;62k7ao3jo4" across the comma, revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄇㄟˇ ㄨㄟˋ" meaning "very delicious"](docs/images/very_delicious.png)
 
 ## Crazy Magical Features
 
@@ -51,15 +51,11 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
   - **Zero-Initial Support**: Handles vowel-only syllables, such as `6u` -> `u6` for "一" or `49` -> `94` for "愛", even in continuous typing without spaces like `5k4g46uek7` -> `5k4g4u6ek7`.
   - **Collision-Safe via Negative Lookahead**: Uses `(?![3467])` lookaheads to ensure the tone is only shifted when the following vowel doesn't already have its own tone, completely preventing false positives across adjacent words.
 
----
-
 ## Setup & Installation
 
 1. Ensure you have downloaded the mod that matches your Minecraft version, and have installed the **Fabric/Quilt Loader**.
 2. Toss the compiled `.jar` file into your `mods` folder.
 3. Enter the game, open the chat, and enjoy your new life as the server's supreme Martian Translator!
-
----
 
 ## Development & Testing
 
@@ -83,8 +79,6 @@ This project uses **Stonecutter** for cross-version 1.20.1, 1.21.11, and 26.2 de
   .\gradlew "Set active project to 26.2.x"
   ```
 
----
-
 ## FAQ
 
 **Q: Can other players who don't have this mod see the translations?**  
@@ -92,8 +86,6 @@ A: If they couldn't read it before, they still can't! This is a **purely client-
 
 **Q: Will it translate my own gibberish too?**  
 A: Yes! It catches all `ChatHud` messages in the chat room. Whether it's sent by others or yours, nothing escapes its gaze.
-
----
 
 **License & Copyright**  
 Copyright © 2026 flandretw | This project is licensed under the [MIT License](LICENSE).
