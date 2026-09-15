@@ -42,7 +42,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
   Even if your keyboard goes haywire and you type a massive full-width `ｊｉ３`, it silently crushes it into half-width in the background and precisely spoon-feeds you the `ㄨㄛˇ`! Chinese full-width punctuation marks are smartly preserved and never mistakenly converted into Bopomofo keys.
 
 * **Punctuation & Multi-Word Segmentation - Anti-Shattering**  
-  Previously, typing Bopomofo adjacent to full-width punctuation marks or English punctuation could shatter translation tokens or corrupt syllables. Our boundary delimiter engine intelligently segments non-Bopomofo symbols so that even complex sentences mixed with Chinese, full-width punctuation, and multiple Bopomofo phrases, such as `非常的新鮮，非常的美味，zo t;6 2k7 vup vu0 ，zo t;6 2k7 ao3 jo4`, will have each Bopomofo phrase accurately identified and translated without fragmentation!
+  Previously, typing Bopomofo adjacent to full-width punctuation marks or English punctuation could shatter translation tokens or corrupt syllables. Our boundary delimiter engine intelligently segments non-Bopomofo symbols so that even complex sentences mixed with Chinese, full-width punctuation, and multiple Bopomofo phrases, such as `非常的新鮮，非常的美味，zo t;62k7vup vu0 ，zo t;62k7ao3jo4`, will have each Bopomofo phrase accurately identified and translated without fragmentation!
 
 * **Rapid-Typing Early and Inverted Tone Correction**  
   Typing too fast and accidentally hitting the tone key before the vowel? For example, typing `ji394su3` as `ji394s3u`, pressing `3` before `u`; or typing `5k4g4u6ek7` as `5k4g46uek7`, pressing `6` before `u`, causing the entire translation to fail?
