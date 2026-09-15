@@ -36,8 +36,12 @@ public class BopomofoConfig {
     public static BopomofoConfig load() {
         if (Files.exists(CONFIG_PATH)) {
             try (Reader reader = Files.newBufferedReader(CONFIG_PATH)) {
-                return GSON.fromJson(reader, BopomofoConfig.class);
-            } catch (IOException e) {
+                BopomofoConfig loaded = GSON.fromJson(reader, BopomofoConfig.class);
+                if (loaded != null) {
+                    if (loaded.textColor == null) loaded.textColor = ChatFormatting.WHITE;
+                    return loaded;
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

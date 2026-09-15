@@ -2,7 +2,11 @@ package flandretw.bopomofo.translator.config;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
+//? if >=26.2 {
+/*import net.minecraft.client.gui.GuiGraphicsExtractor;
+*///?} else {
 import net.minecraft.client.gui.GuiGraphics;
+//?}
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
@@ -25,18 +29,21 @@ public class BopomofoConfigScreen extends Screen {
         int buttonHeight = 20;
 
         // 顏色切換按鈕
+        ChatFormatting[] colors = new ChatFormatting[] {
+            ChatFormatting.BLACK, ChatFormatting.DARK_BLUE, ChatFormatting.DARK_GREEN, ChatFormatting.DARK_AQUA,
+            ChatFormatting.DARK_RED, ChatFormatting.DARK_PURPLE, ChatFormatting.GOLD, ChatFormatting.GRAY,
+            ChatFormatting.DARK_GRAY, ChatFormatting.BLUE, ChatFormatting.GREEN, ChatFormatting.AQUA,
+            ChatFormatting.RED, ChatFormatting.LIGHT_PURPLE, ChatFormatting.YELLOW, ChatFormatting.WHITE
+        };
         this.addRenderableWidget(Button.builder(getColorText(), button -> {
-            int next = config.textColor.getId() + 1;
-            while (true) {
-                if (next > 15)
-                    next = 0;
-                ChatFormatting f = ChatFormatting.getById(next);
-                if (f != null && f.isColor()) {
-                    config.textColor = f;
+            int curIdx = 15;
+            for (int i = 0; i < colors.length; i++) {
+                if (colors[i] == config.textColor) {
+                    curIdx = i;
                     break;
                 }
-                next++;
             }
+            config.textColor = colors[(curIdx + 1) % colors.length];
             button.setMessage(getColorText());
         }).bounds(centerX - buttonWidth / 2, topY, buttonWidth, buttonHeight).build());
 
@@ -62,12 +69,20 @@ public class BopomofoConfigScreen extends Screen {
         // 確定按鈕
         this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> {
             config.save();
-            this.minecraft.setScreen(this.parent);
+            closeScreen();
         }).bounds(centerX - buttonWidth / 2, this.height - 30, buttonWidth, buttonHeight).build());
     }
 
+    private void closeScreen() {
+        //? if >=26.2 {
+        /*this.minecraft.gui.setScreen(this.parent);
+        *///?} else {
+        this.minecraft.setScreen(this.parent);
+        //?}
+    }
+
     private Component getColorText() {
-        String name = config.textColor.getName();
+        String name = config.textColor.name().toLowerCase();
         Component colorName = Component.literal(name.substring(0, 1).toUpperCase() + name.substring(1))
                 .withStyle(config.textColor);
         return Component.translatable("bopomofo.config.format", Component.translatable("bopomofo.config.color"), colorName);
@@ -80,13 +95,22 @@ public class BopomofoConfigScreen extends Screen {
     @Override
     public void onClose() {
         config.save();
-        this.minecraft.setScreen(this.parent);
+        closeScreen();
     }
 
+    //? if >=26.2 {
+    /*@Override
+    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(context, mouseX, mouseY, delta);
+        context.centeredText(this.font, this.title, this.width / 2, 15, 0xFFFFFFFF);
+        context.centeredText(this.font, Component.translatable("bopomofo.config.warning"), this.width / 2, this.height - 50, 0xFFFF5555);
+    }
+    *///?} else {
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
         context.drawCenteredString(this.font, this.title, this.width / 2, 15, 0xFFFFFFFF);
         context.drawCenteredString(this.font, Component.translatable("bopomofo.config.warning"), this.width / 2, this.height - 50, 0xFFFF5555);
     }
+    //?}
 }

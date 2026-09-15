@@ -101,12 +101,28 @@ tasks {
             register("name", "mod.name")
             register("version", "mod.version")
             register("minecraft", "mod.mc_compat")
+            put("java", requiredJava.majorVersion)
         }
 
         filesMatching("fabric.mod.json") { expand(props) }
 
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
         filesMatching("*.mixins.json") { expand("java" to mixinJava) }
+
+        if (sc.current.parsed >= "26.1") {
+            doLast {
+                val fmj = destinationDir.resolve("fabric.mod.json")
+                if (fmj.exists()) {
+                    val json = com.google.gson.JsonParser.parseString(fmj.readText()).asJsonObject
+                    val entrypoints = json.getAsJsonObject("entrypoints")
+                    if (entrypoints != null && entrypoints.has("modmenu")) {
+                        entrypoints.remove("modmenu")
+                        val gson = com.google.gson.GsonBuilder().setPrettyPrinting().create()
+                        fmj.writeText(gson.toJson(json))
+                    }
+                }
+            }
+        }
     }
 
     // Includes the license file in the built mod
@@ -119,6 +135,7 @@ tasks {
     register<Copy>("buildAndCollect") {
         group = "build"
         description = "Builds mod jars and copies results to `build/libs/{mod version}/`"
+        dependsOn("build")
 
         inputs.property("version", project.property("mod.version"))
         // loomx.mod(Sources)Jar returns the jar task for the applied loom variant

@@ -13,7 +13,7 @@ public class BopomofoConverter {
     private static final String F_PART = "[8ik,9ol\\.0p;\\/\\-]";
     private static final String T_PART = "[3467\\s]";
     private static final String C_PART = "(?:" + I_PART + M_PART + "?" + F_PART + "?|" + M_PART + F_PART + "?|" + F_PART + ")";
-    private static final Pattern STRICT_PATTERN;
+    static final Pattern STRICT_PATTERN;
 
     static {
         // Initials (聲母)
@@ -71,6 +71,8 @@ public class BopomofoConverter {
         STRICT_PATTERN = Pattern.compile("^(?:" + C_PART + T_PART + ")*(?:" + C_PART + T_PART + "?)$");
     }
 
+    private static final Pattern DELIMITER_PATTERN = Pattern.compile("[^a-zA-Z0-9,\\.\\/;\\-\\s]+");
+
     public static class BopomofoResult {
         public final boolean changed;
         public final List<Segment> segments;
@@ -97,47 +99,138 @@ public class BopomofoConverter {
         }
 
         String normalized = normalizeFullWidth(originalText);
-        String text = unShift(normalized).toLowerCase();
-        text = fixInvertedTone(text);
 
-        boolean hasBopomofoIndicator = text.matches(".*[0-9,\\.\\/;\\-].*");
-        if (STRICT_PATTERN.matcher(text).matches() && (hasBopomofoIndicator || text.length() > 1)) {
-            if (allSyllablesValid(text)) {
+        // If the entire text is a bopomofo sentence without delimiters
+        if (!DELIMITER_PATTERN.matcher(normalized).find()) {
+            String directTrans = tryTranslate(normalized);
+            if (directTrans != null) {
                 List<Segment> list = new ArrayList<>();
-                list.add(new Segment(originalText, translateFully(text)));
+                list.add(new Segment(originalText, directTrans));
                 return new BopomofoResult(true, list);
             }
         }
 
         List<Segment> segments = new ArrayList<>();
-        String[] words = text.split("(?<= )|(?= )");
+        java.util.regex.Matcher m = DELIMITER_PATTERN.matcher(normalized);
+        int lastIndex = 0;
         boolean changed = false;
-        int currentIndex = 0;
+
+        while (m.find()) {
+            int start = m.start();
+            int end = m.end();
+
+            if (start > lastIndex) {
+                String candOrig = originalText.substring(lastIndex, start);
+                String candNorm = normalized.substring(lastIndex, start);
+                if (processCandidateChunk(candOrig, candNorm, segments)) {
+                    changed = true;
+                }
+            }
+
+            String delimOrig = originalText.substring(start, end);
+            segments.add(new Segment(delimOrig, null));
+
+            lastIndex = end;
+        }
+
+        if (lastIndex < normalized.length()) {
+            String candOrig = originalText.substring(lastIndex);
+            String candNorm = normalized.substring(lastIndex);
+            if (processCandidateChunk(candOrig, candNorm, segments)) {
+                changed = true;
+            }
+        }
+
+        return new BopomofoResult(changed, changed ? segments : null);
+    }
+
+    private static boolean processCandidateChunk(String origChunk, String normChunk, List<Segment> segments) {
+        if (normChunk == null || normChunk.isEmpty()) {
+            return false;
+        }
+
+        int leadSpaces = 0;
+        while (leadSpaces < normChunk.length() && normChunk.charAt(leadSpaces) == ' ') {
+            leadSpaces++;
+        }
+        int trailSpaces = 0;
+        while (trailSpaces < normChunk.length() - leadSpaces && normChunk.charAt(normChunk.length() - 1 - trailSpaces) == ' ') {
+            trailSpaces++;
+        }
+
+        String trimmedNorm = normChunk.substring(leadSpaces, normChunk.length() - trailSpaces);
+        String trimmedOrig = origChunk.substring(leadSpaces, origChunk.length() - trailSpaces);
+
+        if (!trimmedNorm.isEmpty()) {
+            String fullTrans = tryTranslate(trimmedNorm);
+            if (fullTrans != null) {
+                if (leadSpaces > 0) {
+                    segments.add(new Segment(origChunk.substring(0, leadSpaces), null));
+                }
+                segments.add(new Segment(trimmedOrig, fullTrans));
+                if (trailSpaces > 0) {
+                    segments.add(new Segment(origChunk.substring(origChunk.length() - trailSpaces), null));
+                }
+                return true;
+            }
+        }
+
+        String[] words = normChunk.split("(?<= )|(?= )");
+        boolean changed = false;
+        int curr = 0;
 
         for (String word : words) {
-            String origWord = originalText.substring(currentIndex, currentIndex + word.length());
-            currentIndex += word.length();
+            int len = word.length();
+            String origWord = origChunk.substring(curr, curr + len);
+            curr += len;
 
             if (word.trim().isEmpty()) {
                 segments.add(new Segment(origWord, null));
                 continue;
             }
 
-            boolean wordHasIndicator = word.matches(".*[0-9,\\.\\/;\\-].*");
-            if (STRICT_PATTERN.matcher(word).matches() && (wordHasIndicator || word.length() > 1)) {
-                if (allSyllablesValid(word)) {
-                    segments.add(new Segment(origWord, translateFully(word)));
-                    changed = true;
-                    continue;
+            String trans = tryTranslate(word);
+            if (trans != null) {
+                segments.add(new Segment(origWord, trans));
+                changed = true;
+                continue;
+            }
+
+            // Check if trailing punctuation (e.g. '.', ',', ';', '-') can be detached
+            if (word.length() > 2) {
+                char lastChar = word.charAt(word.length() - 1);
+                if (lastChar == '.' || lastChar == ',' || lastChar == ';' || lastChar == '-') {
+                    String sub = word.substring(0, word.length() - 1);
+                    String subTrans = tryTranslate(sub);
+                    if (subTrans != null) {
+                        segments.add(new Segment(origWord.substring(0, origWord.length() - 1), subTrans));
+                        segments.add(new Segment(origWord.substring(origWord.length() - 1), null));
+                        changed = true;
+                        continue;
+                    }
                 }
             }
+
             segments.add(new Segment(origWord, null));
         }
 
-        return new BopomofoResult(changed, changed ? segments : null);
+        return changed;
     }
 
-    private static boolean allSyllablesValid(String text) {
+    static String tryTranslate(String text) {
+        if (text == null || text.trim().isEmpty()) return null;
+        String unshifted = unShift(text).toLowerCase();
+        String fixed = fixInvertedTone(unshifted);
+        boolean hasIndicator = fixed.matches(".*[0-9,\\.\\/;\\-].*");
+        if (STRICT_PATTERN.matcher(fixed).matches() && (hasIndicator || fixed.length() > 1)) {
+            if (allSyllablesValid(fixed)) {
+                return translateFully(fixed);
+            }
+        }
+        return null;
+    }
+
+    static boolean allSyllablesValid(String text) {
         Pattern p = Pattern.compile(C_PART + T_PART + "?");
         java.util.regex.Matcher m = p.matcher(text);
         int lastEnd = 0;
@@ -184,23 +277,29 @@ public class BopomofoConverter {
         return true;
     }
 
-    private static String normalizeFullWidth(String text) {
+    static String normalizeFullWidth(String text) {
+        if (text == null) return null;
         char[] chars = text.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == '\u3000') {
+            char c = chars[i];
+            if (c == '\u3000') {
                 chars[i] = ' ';
-            } else if (chars[i] >= '\uFF01' && chars[i] <= '\uFF5E') {
-                chars[i] = (char) (chars[i] - 0xFEE0);
+            } else if (c >= '\uFF10' && c <= '\uFF19') { // Fullwidth 0-9
+                chars[i] = (char) (c - 0xFEE0);
+            } else if (c >= '\uFF21' && c <= '\uFF3A') { // Fullwidth A-Z
+                chars[i] = (char) (c - 0xFEE0);
+            } else if (c >= '\uFF41' && c <= '\uFF5A') { // Fullwidth a-z
+                chars[i] = (char) (c - 0xFEE0);
             }
+            // Keep all other fullwidth punctuation (e.g. \uFF0C fullwidth comma, \uFF08/\uFF09 parens) unchanged
         }
         return new String(chars);
     }
 
-    private static String unShift(String text) {
+    static String unShift(String text) {
         char[] chars = text.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             switch (chars[i]) {
-                case '!': chars[i] = '1'; break;
                 case '@': chars[i] = '2'; break;
                 case '#': chars[i] = '3'; break;
                 case '$': chars[i] = '4'; break;
@@ -208,16 +307,14 @@ public class BopomofoConverter {
                 case '^': chars[i] = '6'; break;
                 case '&': chars[i] = '7'; break;
                 case '*': chars[i] = '8'; break;
-                case '(': chars[i] = '9'; break;
-                case ')': chars[i] = '0'; break;
-                // Exclude common chat punctuation like :, ?, <, >, etc.
+                // Exclude common chat punctuation like !, (, ), :, ?, <, >, etc.
             }
         }
         return new String(chars);
     }
 
 
-    private static String fixInvertedTone(String text) {
+    static String fixInvertedTone(String text) {
         if (text == null || text.length() < 2) return text;
 
         String initials = "1qaz2wsxedcrfv5tgbyhn";
@@ -243,8 +340,10 @@ public class BopomofoConverter {
                 .matcher(text).replaceAll("$1$3$2");
 
         // 5. Zero-initial syllables with early tone (at start, after space, non-initial, or after preceding tone; e.g. 6u -> u6, 49 -> 94, 5k4g46uek7 -> 5k4g4u6ek7)
+        // Note: We must ensure that a preceding syllable's final consonant/vowel is NOT treated as zero-initial!
+        // So the preceding character before the early tone must be either start of string, whitespace, or an actual tone.
         String prev = "";
-        Pattern p5 = Pattern.compile("(^|[\\s" + tones + "]|[^" + initials + "])([" + tones + "])((?:[" + medials + "][" + finals + "]?)|[" + finals + "])" + notTone);
+        Pattern p5 = Pattern.compile("(^|[\\s" + tones + "])([" + tones + "])((?:[" + medials + "][" + finals + "]?)|[" + finals + "])" + notTone);
         while (!text.equals(prev)) {
             prev = text;
             text = p5.matcher(text).replaceAll("$1$3$2");

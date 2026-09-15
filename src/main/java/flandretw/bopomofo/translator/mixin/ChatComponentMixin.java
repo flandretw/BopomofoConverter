@@ -2,7 +2,11 @@ package flandretw.bopomofo.translator.mixin;
 
 import flandretw.bopomofo.translator.BopomofoConverter;
 import net.minecraft.client.gui.components.ChatComponent;
+//? if >=26.2 {
+/*import net.minecraft.client.multiplayer.chat.GuiMessageTag;
+*///?} else {
 import net.minecraft.client.GuiMessageTag;
+//?}
 import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
@@ -15,6 +19,15 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(ChatComponent.class)
 public class ChatComponentMixin {
 
+    //? if >=26.2 {
+    /*@ModifyVariable(method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/multiplayer/chat/GuiMessageSource;Lnet/minecraft/client/multiplayer/chat/GuiMessageTag;)V", at = @At("HEAD"), argsOnly = true, ordinal = 0)
+    private Component modifyChatMessage(Component originalMessage) {
+        if (originalMessage == null)
+            return null;
+        Component modified = processText(originalMessage);
+        return modified != null ? modified : originalMessage;
+    }
+    *///?} else {
     @ModifyVariable(method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/GuiMessageTag;)V", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private Component modifyChatMessage(Component originalMessage) {
         if (originalMessage == null)
@@ -22,6 +35,7 @@ public class ChatComponentMixin {
         Component modified = processText(originalMessage);
         return modified != null ? modified : originalMessage;
     }
+    //?}
 
     private Component processText(Component text) {
         boolean changed = false;
@@ -41,11 +55,10 @@ public class ChatComponentMixin {
                 if (result.changed) {
                     changed = true;
                     newText = Component.empty(); // Discard the original single text body
+                    flandretw.bopomofo.translator.config.BopomofoConfig config = flandretw.bopomofo.translator.config.BopomofoConfig.getInstance();
                     for (BopomofoConverter.Segment seg : result.segments) {
                         MutableComponent segText = Component.literal(seg.original);
                         if (seg.translated != null) {
-                            flandretw.bopomofo.translator.config.BopomofoConfig config = flandretw.bopomofo.translator.config.BopomofoConfig
-                                    .getInstance();
                             MutableComponent translatedText = Component.literal(seg.translated).withStyle(config.textColor);
                             if (config.bold)
                                 translatedText.withStyle(net.minecraft.ChatFormatting.BOLD);

@@ -32,7 +32,9 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 * ⌨️ **Sneak (Shift) Typo Correction**
   Sneaking around in Minecraft holding Shift while typing, and accidentally producing `JI#CL#`, crashing the translation? We thought of that too! A built-in Shift decoder runs in the background. Whether numbers turned into special symbols or cases got messed up, they are automatically restored to their rightful places!
 * 🔠 **Full-Width Character Dimensional Strike**
-  Even if your keyboard goes haywire and you type a massive full-width `ｊｉ３`, it silently crushes it into half-width in the background and precisely spoon-feeds you the `ㄨㄛˇ`!
+  Even if your keyboard goes haywire and you type a massive full-width `ｊｉ３`, it silently crushes it into half-width in the background and precisely spoon-feeds you the `ㄨㄛˇ`! Chinese full-width punctuation marks are smartly preserved and never mistakenly converted into Bopomofo keys.
+* 🎯 **Punctuation & Multi-Word Segmentation (Anti-Shattering)**
+  Previously, typing Bopomofo adjacent to full-width punctuation marks (`，`, `。`, `！`, `？`, `（`, `）`) or English punctuation could shatter translation tokens or corrupt syllables. Our boundary delimiter engine intelligently segments non-Bopomofo symbols so that even complex sentences mixed with Chinese, full-width punctuation, parentheses, and multiple Bopomofo phrases (e.g. `貓咪大戰爭，好好玩（al au 2845045/ ，cl3cl3j06）`) will have each Bopomofo phrase accurately identified and translated without fragmentation!
 * ⚡ **Rapid-Typing Early/Inverted Tone Correction**
   Typing too fast and accidentally hitting the tone key before the vowel? For example, typing "I love you" (`ji394su3`) as `ji394s3u` (pressing `3` before `u`), or typing `5k4g4u6ek7` as `5k4g46uek7` (pressing `6` before `u`), causing the entire translation to fail?
   We've got you covered! The mod includes an intelligent syllable reordering engine (`fixInvertedTone`):
@@ -52,7 +54,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 
 ## 💻 Development & Testing (Multi-Version)
 
-This project uses **Stonecutter** for cross-version development and build management, avoiding the need to manually switch branches. Use the following Gradle commands:
+This project uses **Stonecutter** for cross-version (1.20.1, 1.21.11, 26.2) development and build management, avoiding the need to manually switch branches. Use the following Gradle commands:
 
 * **Build all supported versions:**
   ```bash
@@ -64,6 +66,13 @@ This project uses **Stonecutter** for cross-version development and build manage
   Test environments for each version are completely isolated (with separate `run` directories). You can launch them directly:
   - For 1.20.1: `.\gradlew :1.20.1:runClient`
   - For 1.21.11: `.\gradlew :1.21.11:runClient`
+  - For 26.2: `.\gradlew :26.2.x:runClient`
+
+* **Switch active project in IDE (Stonecutter):**
+  ```bash
+  .\gradlew "Set active project to 1.21.11"
+  .\gradlew "Set active project to 26.2.x"
+  ```
 
 ---
 
