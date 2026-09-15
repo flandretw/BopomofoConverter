@@ -1,0 +1,23 @@
+# See https://stonecutter.kikugie.dev/wiki/config/properties#centralized-properties
+mod.id = "bopomofo-translator"
+mod.name = "BopomofoTranslator"
+mod.group = "flandretw.bopomofo.translator"
+mod.version = "1.0.0"
+
+deps.fabric_loader = "0.19.5"
+loomx.loom_version = "1.17-SNAPSHOT"
+
+["1.20.1"]
+mod.mc_compat = "1.20.1"
+mod.mc_releases = ["1.20.1"]
+deps.fabric_api = "0.92.3+1.20.1"
+deps.yarn = "1.20.1+build.10"
+deps.modmenu = "7.2.2"
+
+["1.21.11"]
+mod.mc_compat = "1.21.11"
+mod.mc_releases = ["1.21.11"]
+deps.fabric_api = "0.141.6+1.21.11"
+deps.yarn = "1.21.11+build.6"
+deps.modmenu = "17.0.0"
+

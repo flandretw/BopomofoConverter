@@ -30,7 +30,11 @@ public class ChatHudMixin {
         Style newStyle = text.getStyle();
 
         net.minecraft.text.TextContent content = text.getContent();
+        //? if <1.20.3 {
+        /*if (content instanceof net.minecraft.text.LiteralTextContent plain) {
+        *///?} else {
         if (content instanceof net.minecraft.text.PlainTextContent plain) {
+        //?}
             String literal = plain.string();
             if (!literal.isEmpty()) {
                 BopomofoConverter.BopomofoResult result = BopomofoConverter.convert(literal);
@@ -50,7 +54,11 @@ public class ChatHudMixin {
                             if (config.underline)
                                 translatedText.formatted(net.minecraft.util.Formatting.UNDERLINE);
 
+                            //? if <1.20.3 {
+                            /*segText.setStyle(newStyle.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, translatedText)));
+                            *///?} else {
                             segText.setStyle(newStyle.withHoverEvent(new HoverEvent.ShowText(translatedText)));
+                            //?}
                         } else {
                             segText.setStyle(newStyle);
                         }

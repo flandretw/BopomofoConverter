@@ -50,6 +50,23 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 
 ---
 
+## 💻 Development & Testing (Multi-Version)
+
+This project uses **Stonecutter** for cross-version development and build management, avoiding the need to manually switch branches. Use the following Gradle commands:
+
+* **Build all supported versions:**
+  ```bash
+  .\gradlew clean buildAndCollect
+  ```
+  *(Compiled `.jar` files will be output to `build/libs/` in the project root)*
+
+* **Run a specific version's test client:**
+  Test environments for each version are completely isolated (with separate `run` directories). You can launch them directly:
+  - For 1.20.1: `.\gradlew :1.20.1:runClient`
+  - For 1.21.11: `.\gradlew :1.21.11:runClient`
+
+---
+
 ## 🤔 FAQ
 
 **Q: Can other players who don't have this mod see the translations?**  
