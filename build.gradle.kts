@@ -44,13 +44,15 @@ dependencies {
     }
 
     minecraft("com.mojang:minecraft:${sc.current.version}")
-    // Applies Yarn Mappings
-    mappings("net.fabricmc:yarn:${property("deps.yarn")}:v2")
+    // Applies Mojang Mappings on obfuscated versions
+    loomx.applyMojangMappings()
 
     // Use `mod{dependency type}` even on 26.1+ - loom-back-compat converts them
     modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
-    modImplementation("com.terraformersmc:modmenu:${property("deps.modmenu")}")
+    if (project.hasProperty("deps.modmenu")) {
+        modImplementation("com.terraformersmc:modmenu:${property("deps.modmenu")}")
+    }
     
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

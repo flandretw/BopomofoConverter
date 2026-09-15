@@ -1,18 +1,18 @@
 package flandretw.bopomofo.translator.config;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
 
 public class BopomofoConfigScreen extends Screen {
     private final Screen parent;
     private final BopomofoConfig config;
 
     public BopomofoConfigScreen(Screen parent) {
-        super(Text.translatable("bopomofo.config.title"));
+        super(Component.translatable("bopomofo.config.title"));
         this.parent = parent;
         this.config = BopomofoConfig.getInstance();
     }
@@ -25,12 +25,12 @@ public class BopomofoConfigScreen extends Screen {
         int buttonHeight = 20;
 
         // 顏色切換按鈕
-        this.addDrawableChild(ButtonWidget.builder(getColorText(), button -> {
-            int next = config.textColor.getColorIndex() + 1;
+        this.addRenderableWidget(Button.builder(getColorText(), button -> {
+            int next = config.textColor.getId() + 1;
             while (true) {
                 if (next > 15)
                     next = 0;
-                Formatting f = Formatting.byColorIndex(next);
+                ChatFormatting f = ChatFormatting.getById(next);
                 if (f != null && f.isColor()) {
                     config.textColor = f;
                     break;
@@ -38,55 +38,55 @@ public class BopomofoConfigScreen extends Screen {
                 next++;
             }
             button.setMessage(getColorText());
-        }).dimensions(centerX - buttonWidth / 2, topY, buttonWidth, buttonHeight).build());
+        }).bounds(centerX - buttonWidth / 2, topY, buttonWidth, buttonHeight).build());
 
         // 粗體開關
-        this.addDrawableChild(ButtonWidget.builder(getBoolText("bopomofo.config.bold", config.bold), button -> {
+        this.addRenderableWidget(Button.builder(getBoolText("bopomofo.config.bold", config.bold), button -> {
             config.bold = !config.bold;
             button.setMessage(getBoolText("bopomofo.config.bold", config.bold));
-        }).dimensions(centerX - buttonWidth / 2, topY + 24, buttonWidth, buttonHeight).build());
+        }).bounds(centerX - buttonWidth / 2, topY + 24, buttonWidth, buttonHeight).build());
 
         // 斜體開關
-        this.addDrawableChild(ButtonWidget.builder(getBoolText("bopomofo.config.italic", config.italic), button -> {
+        this.addRenderableWidget(Button.builder(getBoolText("bopomofo.config.italic", config.italic), button -> {
             config.italic = !config.italic;
             button.setMessage(getBoolText("bopomofo.config.italic", config.italic));
-        }).dimensions(centerX - buttonWidth / 2, topY + 48, buttonWidth, buttonHeight).build());
+        }).bounds(centerX - buttonWidth / 2, topY + 48, buttonWidth, buttonHeight).build());
 
         // 底線開關
-        this.addDrawableChild(
-                ButtonWidget.builder(getBoolText("bopomofo.config.underline", config.underline), button -> {
+        this.addRenderableWidget(
+                Button.builder(getBoolText("bopomofo.config.underline", config.underline), button -> {
                     config.underline = !config.underline;
                     button.setMessage(getBoolText("bopomofo.config.underline", config.underline));
-                }).dimensions(centerX - buttonWidth / 2, topY + 72, buttonWidth, buttonHeight).build());
+                }).bounds(centerX - buttonWidth / 2, topY + 72, buttonWidth, buttonHeight).build());
 
         // 確定按鈕
-        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> {
+        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> {
             config.save();
-            this.client.setScreen(this.parent);
-        }).dimensions(centerX - buttonWidth / 2, this.height - 30, buttonWidth, buttonHeight).build());
+            this.minecraft.setScreen(this.parent);
+        }).bounds(centerX - buttonWidth / 2, this.height - 30, buttonWidth, buttonHeight).build());
     }
 
-    private Text getColorText() {
+    private Component getColorText() {
         String name = config.textColor.getName();
-        Text colorName = Text.literal(name.substring(0, 1).toUpperCase() + name.substring(1))
-                .formatted(config.textColor);
-        return Text.translatable("bopomofo.config.format", Text.translatable("bopomofo.config.color"), colorName);
+        Component colorName = Component.literal(name.substring(0, 1).toUpperCase() + name.substring(1))
+                .withStyle(config.textColor);
+        return Component.translatable("bopomofo.config.format", Component.translatable("bopomofo.config.color"), colorName);
     }
 
-    private Text getBoolText(String key, boolean value) {
-        return Text.translatable("bopomofo.config.format", Text.translatable(key), ScreenTexts.onOrOff(value));
+    private Component getBoolText(String key, boolean value) {
+        return Component.translatable("bopomofo.config.format", Component.translatable(key), CommonComponents.optionStatus(value));
     }
 
     @Override
-    public void close() {
+    public void onClose() {
         config.save();
-        this.client.setScreen(this.parent);
+        this.minecraft.setScreen(this.parent);
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 15, 0xFFFFFFFF);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("bopomofo.config.warning"), this.width / 2, this.height - 50, 0xFFFF5555);
+        context.drawCenteredString(this.font, this.title, this.width / 2, 15, 0xFFFFFFFF);
+        context.drawCenteredString(this.font, Component.translatable("bopomofo.config.warning"), this.width / 2, this.height - 50, 0xFFFF5555);
     }
 }

@@ -1,58 +1,58 @@
 package flandretw.bopomofo.translator.mixin;
 
 import flandretw.bopomofo.translator.BopomofoConverter;
-import net.minecraft.client.gui.hud.ChatHud;
-import net.minecraft.client.gui.hud.MessageIndicator;
-import net.minecraft.network.message.MessageSignatureData;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.components.ChatComponent;
+import net.minecraft.client.GuiMessageTag;
+import net.minecraft.network.chat.MessageSignature;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(ChatHud.class)
-public class ChatHudMixin {
+@Mixin(ChatComponent.class)
+public class ChatComponentMixin {
 
-    @ModifyVariable(method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V", at = @At("HEAD"), argsOnly = true, ordinal = 0)
-    private Text modifyChatMessage(Text originalMessage) {
+    @ModifyVariable(method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/GuiMessageTag;)V", at = @At("HEAD"), argsOnly = true, ordinal = 0)
+    private Component modifyChatMessage(Component originalMessage) {
         if (originalMessage == null)
             return null;
-        Text modified = processText(originalMessage);
+        Component modified = processText(originalMessage);
         return modified != null ? modified : originalMessage;
     }
 
-    private Text processText(Text text) {
+    private Component processText(Component text) {
         boolean changed = false;
 
-        MutableText newText = text.copyContentOnly();
+        MutableComponent newText = text.plainCopy();
         Style newStyle = text.getStyle();
 
-        net.minecraft.text.TextContent content = text.getContent();
+        net.minecraft.network.chat.ComponentContents content = text.getContents();
         //? if <1.20.3 {
-        /*if (content instanceof net.minecraft.text.LiteralTextContent plain) {
+        /*if (content instanceof net.minecraft.network.chat.contents.LiteralContents plain) {
         *///?} else {
-        if (content instanceof net.minecraft.text.PlainTextContent plain) {
+        if (content instanceof net.minecraft.network.chat.contents.PlainTextContents plain) {
         //?}
-            String literal = plain.string();
+            String literal = plain.text();
             if (!literal.isEmpty()) {
                 BopomofoConverter.BopomofoResult result = BopomofoConverter.convert(literal);
                 if (result.changed) {
                     changed = true;
-                    newText = Text.empty(); // Discard the original single text body
+                    newText = Component.empty(); // Discard the original single text body
                     for (BopomofoConverter.Segment seg : result.segments) {
-                        MutableText segText = Text.literal(seg.original);
+                        MutableComponent segText = Component.literal(seg.original);
                         if (seg.translated != null) {
                             flandretw.bopomofo.translator.config.BopomofoConfig config = flandretw.bopomofo.translator.config.BopomofoConfig
                                     .getInstance();
-                            MutableText translatedText = Text.literal(seg.translated).formatted(config.textColor);
+                            MutableComponent translatedText = Component.literal(seg.translated).withStyle(config.textColor);
                             if (config.bold)
-                                translatedText.formatted(net.minecraft.util.Formatting.BOLD);
+                                translatedText.withStyle(net.minecraft.ChatFormatting.BOLD);
                             if (config.italic)
-                                translatedText.formatted(net.minecraft.util.Formatting.ITALIC);
+                                translatedText.withStyle(net.minecraft.ChatFormatting.ITALIC);
                             if (config.underline)
-                                translatedText.formatted(net.minecraft.util.Formatting.UNDERLINE);
+                                translatedText.withStyle(net.minecraft.ChatFormatting.UNDERLINE);
 
                             //? if <1.20.3 {
                             /*segText.setStyle(newStyle.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, translatedText)));
@@ -67,19 +67,19 @@ public class ChatHudMixin {
                     newStyle = Style.EMPTY;
                 }
             }
-        } else if (content instanceof net.minecraft.text.TranslatableTextContent translatable) {
+        } else if (content instanceof net.minecraft.network.chat.contents.TranslatableContents translatable) {
             Object[] args = translatable.getArgs();
             Object[] newArgs = new Object[args.length];
             for (int i = 0; i < args.length; i++) {
                 Object arg = args[i];
-                if (arg instanceof Text argText) {
-                    Text newArg = processText(argText);
+                if (arg instanceof Component argText) {
+                    Component newArg = processText(argText);
                     if (newArg != argText)
                         changed = true;
                     newArgs[i] = newArg;
                 } else if (arg instanceof String argStr) {
-                    Text textArg = Text.literal(argStr);
-                    Text newArg = processText(textArg);
+                    Component textArg = Component.literal(argStr);
+                    Component newArg = processText(textArg);
                     if (newArg != textArg)
                         changed = true;
                     newArgs[i] = (newArg != textArg) ? newArg : argStr;
@@ -89,17 +89,17 @@ public class ChatHudMixin {
             }
             if (changed) {
                 if (translatable.getFallback() != null) {
-                    newText = Text.translatableWithFallback(translatable.getKey(), translatable.getFallback(), newArgs);
+                    newText = Component.translatableWithFallback(translatable.getKey(), translatable.getFallback(), newArgs);
                 } else {
-                    newText = Text.translatable(translatable.getKey(), newArgs);
+                    newText = Component.translatable(translatable.getKey(), newArgs);
                 }
             }
         }
 
         newText.setStyle(newStyle);
 
-        for (Text sibling : text.getSiblings()) {
-            Text processedSibling = processText(sibling);
+        for (Component sibling : text.getSiblings()) {
+            Component processedSibling = processText(sibling);
             if (processedSibling != sibling) {
                 changed = true;
             }

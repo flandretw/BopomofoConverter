@@ -3,7 +3,7 @@ package flandretw.bopomofo.translator.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -19,7 +19,7 @@ public class BopomofoConfig {
     // Default values as requested: base game default color (YELLOW and WHITE are
     // common, we will use default Formatting behavior or WHITE), no bold, no
     // italic.
-    public Formatting textColor = Formatting.WHITE;
+    public ChatFormatting textColor = ChatFormatting.WHITE;
     public boolean bold = false;
     public boolean italic = false;
     public boolean underline = false;
