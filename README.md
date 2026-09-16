@@ -9,53 +9,59 @@
 > **Disclaimer**  
 > This project was forged using **Gemini "Vibe Coding"**, fueled by AI magic and excessive amounts of digital fries. **Proceed with caution**! If the UI starts dancing or the code looks like a magical incantation, don't worry—it's just the vibe.
 
-"I can read all the alien gibberish you typed!!"
+"I can read all the alien gibberish you typed."
 
-## What is this cool stuff?
+## What is this?
 
-From the Minecraft universe comes a savior — the **Bopomofo Translator**! A super-smart mod dedicated to saving those brain-fart moments when you "forgot to switch your input method"!
+**Bopomofo Translator** is a client-side Fabric mod designed to save you from those awkward moments when you forgot to switch your input method.
 
-Do you often forget to switch your Chinese input method while typing on a server, ending up sending mysterious codes like `ji394su3`?
-And then everyone below spams `?`, forcing you to switch your keyboard and awkwardly re-type "I love you"?
+Do you often forget to switch to your Chinese input method on a server, sending out cryptic codes like `ji394su3`?
+And then the chat gets flooded with `?`, forcing you to switch your keyboard and awkwardly re-type "I love you"?
 
-Worry no more! This **Fabric Client-Side Exclusive** mod is born for this exact scenario!
-It will retain your original text, leaving the social death scene intact for everyone to laugh at, while **gently floating the correctly translated Bopomofo text as a Hover Text** whenever you hover your mouse over the gibberish!
+This mod leaves your original message intact for everyone to laugh at, while displaying **hover text with the translated Bopomofo** whenever you move your cursor over the gibberish.
 
-Best of all, **this is a purely client-side mod**. The server requires zero installation or configuration. You install it yourself, and boom—you now have the superpower to decode the entire server's gibberish!
+Best of all, **this is a purely client-side mod**. The server requires zero installation. You install it yourself, and you're good to go.
 
 ![In-game chat demonstration showing the mouse cursor hovering over the first part of the gibberish text "zo t;62k7vup vu0", revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄒㄧㄣ ㄒㄧㄢ" meaning "very fresh"](docs/images/very_fresh.png)
 
 ![In-game chat demonstration showing the mouse cursor hovering over the second part of the gibberish text "zo t;62k7ao3jo4" across the comma, revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄇㄟˇ ㄨㄟˋ" meaning "very delicious"](docs/images/very_delicious.png)
 
-## Crazy Magical Features
+## Features
 
 * **Strict Bopomofo Building-Block Algorithm**  
-  We won't foolishly translate normal English words like `hello` into `ㄘㄍㄠㄠㄟ`! The program has an extremely rigorous DaChen keyboard syllable validator built-in. Only the Martian fragments that **perfectly** match the "Initial + Medial + Final + Tone" structure will trigger the translation! Normal English conversations will remain completely unharmed.
+  Won't randomly translate normal English words like `hello` into `ㄘㄍㄠㄠㄟ`. Built-in syllable validation ensures only text matching the "Initial + Medial + Final + Tone" layout gets translated, leaving standard English conversations untouched.
 
-* **Seamless & Precise Segmentation - Hypixel-Proof**  
-  Even on servers like Hypixel that messily glue custom titles together with chat messages `[VIP] Flandre_tw:`, the mod perfectly separates the title from the dialogue! Your cursor will only unleash its magic when pointing exactly at the gibberish.
+  ![Normal English word hello does not trigger translation](docs/images/hello.png)
 
-* **Sneak Shift Typo Correction**  
-  Sneaking around in Minecraft holding Shift while typing, and accidentally producing `JI#CL#`, crashing the translation? We thought of that too! A built-in Shift decoder runs in the background. Whether numbers turned into special symbols or cases got messed up, they are automatically restored to their rightful places!
+* **Chat & Title Boundary Separation**  
+  On servers that glue player titles directly to chat messages (like Hypixel's `[VIP] Flandre_tw:`), the mod cleanly separates the title from the message and only translates the gibberish portion.
 
-* **Full-Width Character Dimensional Strike**  
-  Even if your keyboard goes haywire and you type a massive full-width `ｊｉ３`, it silently crushes it into half-width in the background and precisely spoon-feeds you the `ㄨㄛˇ`! Chinese full-width punctuation marks are smartly preserved and never mistakenly converted into Bopomofo keys.
+  ![Hypixel player rank title accurately separated from chat message](docs/images/hypixel.png)
 
-* **Punctuation & Multi-Word Segmentation - Anti-Shattering**  
-  Previously, typing Bopomofo adjacent to full-width punctuation marks or English punctuation could shatter translation tokens or corrupt syllables. Our boundary delimiter engine intelligently segments non-Bopomofo symbols so that even complex sentences mixed with Chinese, full-width punctuation, and multiple Bopomofo phrases, such as `非常的新鮮，非常的美味，zo t;62k7vup vu0 ，zo t;62k7ao3jo4`, will have each Bopomofo phrase accurately identified and translated without fragmentation!
+* **CapsLock & Full-Width Handling**  
+  Accidentally typed "想啊！很想啊！" (`VU;387！CP3VU;387！`) with CapsLock on, or full-width "想" (`ＶＵ；３`)? The mod silently normalizes characters into half-width lowercase to resolve "想" (`ㄒㄧㄤˇ`), while keeping full-width punctuation marks intact.
 
-* **Rapid-Typing Early and Inverted Tone Correction**  
-  Typing too fast and accidentally hitting the tone key before the vowel? For example, typing `ji394su3` as `ji394s3u`, pressing `3` before `u`; or typing `5k4g4u6ek7` as `5k4g46uek7`, pressing `6` before `u`, causing the entire translation to fail?
-  We've got you covered! The mod includes an intelligent syllable reordering engine `fixInvertedTone`:
-  - **Structure-Aware Reordering**: On standard DaChen keyboard layouts, each key's role is strictly defined across initials, medials, finals, and tones. When the parser detects an inverted sequence such as `s3u` -> `su3`, `148` -> `184`, `2u3l` -> `2ul3`, it automatically shifts the premature tone back to the end of the syllable.
-  - **Zero-Initial Support**: Handles vowel-only syllables, such as `6u` -> `u6` for "一" or `49` -> `94` for "愛", even in continuous typing without spaces like `5k4g46uek7` -> `5k4g4u6ek7`.
-  - **Collision-Safe via Negative Lookahead**: Uses `(?![3467])` lookaheads to ensure the tone is only shifted when the following vowel doesn't already have its own tone, completely preventing false positives across adjacent words.
+  ![CapsLock uppercase text automatically normalized and translated](docs/images/miss.png)
+
+* **Punctuation & Multi-Word Segmentation**  
+  Words adjacent to full-width punctuation won't shatter syllables. Mixed sentences containing Chinese, punctuation, and multiple Bopomofo phrases—such as "你是一個，一個一個一個" (`su3g4u6ek7，u6ek7u6ek7u6ek7`)—are parsed independently with punctuation preserved.
+
+  ![Punctuation and multiple Bopomofo phrases independently parsed](docs/images/you_are_a_a_a_a.png)
+
+* **Rapid-Typing Tone Correction**  
+  Typing too fast can cause the tone key to land before the vowel, such as typing "只有紅茶可以嗎" (`53u.3cj/6t86dk3u3a87`) mistakenly as `53u3.cj/6t86dk3u3a87` (pressed `3` before `.`).
+  The syllable recovery mechanism handles this automatically:
+  - **Structural Reordering**: Recognizes key roles on the keyboard. When a tone key lands early (e.g. "紅" `cj6/` -> `cj/6`, "茶" `t68` -> `t86`, "可" `d3k` -> `dk3`), it shifts the tone to the end of the syllable before parsing.
+  - **Zero-Initial Syllables**: Supports syllables without initials like "有" (`u3.` -> `u.3`), even in continuous typing without spaces.
+  - **Safety Guard**: Employs negative lookaheads to only shift tones when the syllable does not already have one, avoiding accidental corruption of adjacent words.
+
+  ![Early tone key press automatically reordered and translated](docs/images/only_black_tea_right.png)
 
 ## Setup & Installation
 
 1. Ensure you have downloaded the mod that matches your Minecraft version, and have installed the **Fabric/Quilt Loader**.
 2. Toss the compiled `.jar` file into your `mods` folder.
-3. Enter the game, open the chat, and enjoy your new life as the server's supreme Martian Translator!
+3. Enter the game, open the chat, and enjoy deciphering everyone's Martian gibberish.
 4. Open the settings screen anytime via Mod Menu, or by typing `/bopomofo` (or `/bopomofo-translator`) in the chat.
 
 ## Development & Testing
@@ -82,11 +88,11 @@ This project uses **Stonecutter** for cross-version 1.20.1, 1.21.11, and 26.2 de
 
 ## FAQ
 
-**Q: Can other players who don't have this mod see the translations?**  
-A: If they couldn't read it before, they still can't! This is a **purely client-side mod**, so all the translation magic happens locally on your computer. You install it, you enjoy it. Those who don't will continue spacing out with `???`.
+**Q: Can players without this mod see the translations?**  
+A: Nope. This is a **purely client-side mod**. Translations happen locally on your machine. Those without it will remain confused.
 
-**Q: Will it translate my own gibberish too?**  
-A: Yes! It catches all `ChatHud` messages in the chat room. Whether it's sent by others or yours, nothing escapes its gaze.
+**Q: Does it translate my own messages?**  
+A: Yes, it processes all messages in the chat HUD, including your own.
 
 **License & Copyright**  
 Copyright © 2026 flandretw | This project is licensed under the [MIT License](LICENSE).
