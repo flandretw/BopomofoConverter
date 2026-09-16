@@ -24,9 +24,11 @@ public class BopomofoConfigScreen extends Screen {
     @Override
     protected void init() {
         int centerX = this.width / 2;
-        int topY = 40;
         int buttonWidth = 200;
         int buttonHeight = 20;
+        int totalHeight = 166;
+        int startY = Math.max(15, (this.height - totalHeight) / 2);
+        int btn0Y = startY + 28;
 
         // 顏色切換按鈕
         ChatFormatting[] colors = new ChatFormatting[] {
@@ -45,32 +47,32 @@ public class BopomofoConfigScreen extends Screen {
             }
             config.textColor = colors[(curIdx + 1) % colors.length];
             button.setMessage(getColorText());
-        }).bounds(centerX - buttonWidth / 2, topY, buttonWidth, buttonHeight).build());
+        }).bounds(centerX - buttonWidth / 2, btn0Y, buttonWidth, buttonHeight).build());
 
         // 粗體開關
         this.addRenderableWidget(Button.builder(getBoolText("bopomofo.config.bold", config.bold), button -> {
             config.bold = !config.bold;
             button.setMessage(getBoolText("bopomofo.config.bold", config.bold));
-        }).bounds(centerX - buttonWidth / 2, topY + 24, buttonWidth, buttonHeight).build());
+        }).bounds(centerX - buttonWidth / 2, btn0Y + 24, buttonWidth, buttonHeight).build());
 
         // 斜體開關
         this.addRenderableWidget(Button.builder(getBoolText("bopomofo.config.italic", config.italic), button -> {
             config.italic = !config.italic;
             button.setMessage(getBoolText("bopomofo.config.italic", config.italic));
-        }).bounds(centerX - buttonWidth / 2, topY + 48, buttonWidth, buttonHeight).build());
+        }).bounds(centerX - buttonWidth / 2, btn0Y + 48, buttonWidth, buttonHeight).build());
 
         // 底線開關
         this.addRenderableWidget(
                 Button.builder(getBoolText("bopomofo.config.underline", config.underline), button -> {
                     config.underline = !config.underline;
                     button.setMessage(getBoolText("bopomofo.config.underline", config.underline));
-                }).bounds(centerX - buttonWidth / 2, topY + 72, buttonWidth, buttonHeight).build());
+                }).bounds(centerX - buttonWidth / 2, btn0Y + 72, buttonWidth, buttonHeight).build());
 
         // 確定按鈕
         this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> {
             config.save();
             closeScreen();
-        }).bounds(centerX - buttonWidth / 2, this.height - 30, buttonWidth, buttonHeight).build());
+        }).bounds(centerX - buttonWidth / 2, startY + 146, buttonWidth, buttonHeight).build());
     }
 
     private void closeScreen() {
@@ -102,15 +104,22 @@ public class BopomofoConfigScreen extends Screen {
     /*@Override
     public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
         super.extractRenderState(context, mouseX, mouseY, delta);
-        context.centeredText(this.font, this.title, this.width / 2, 15, 0xFFFFFFFF);
-        context.centeredText(this.font, Component.translatable("bopomofo.config.warning"), this.width / 2, this.height - 50, 0xFFFF5555);
+        int totalHeight = 166;
+        int startY = Math.max(15, (this.height - totalHeight) / 2);
+        context.centeredText(this.font, this.title, this.width / 2, startY, 0xFFFFFFFF);
+        context.centeredText(this.font, Component.translatable("bopomofo.config.warning"), this.width / 2, startY + 128, 0xFFFF5555);
     }
     *///?} else {
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        //? if <=1.20.1 {
+        /*this.renderBackground(context);
+        *///?}
         super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredString(this.font, this.title, this.width / 2, 15, 0xFFFFFFFF);
-        context.drawCenteredString(this.font, Component.translatable("bopomofo.config.warning"), this.width / 2, this.height - 50, 0xFFFF5555);
+        int totalHeight = 166;
+        int startY = Math.max(15, (this.height - totalHeight) / 2);
+        context.drawCenteredString(this.font, this.title, this.width / 2, startY, 0xFFFFFFFF);
+        context.drawCenteredString(this.font, Component.translatable("bopomofo.config.warning"), this.width / 2, startY + 128, 0xFFFF5555);
     }
     //?}
 }

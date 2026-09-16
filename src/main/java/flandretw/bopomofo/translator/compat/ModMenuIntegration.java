@@ -1,4 +1,3 @@
-//? if <26.1 {
 package flandretw.bopomofo.translator.compat;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
@@ -11,4 +10,3 @@ public class ModMenuIntegration implements ModMenuApi {
         return parent -> new BopomofoConfigScreen(parent);
     }
 }
-//?}

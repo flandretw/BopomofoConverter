@@ -56,6 +56,7 @@
 1. 確保已下載對應 Minecraft 版本的模組，並且已安裝 **Fabric/Quilt Loader**。
 2. 將編譯好的 `.jar` 檔案丟進您的 `mods` 資料夾。
 3. 進入遊戲，打開聊天室，享受當全伺服器最高級火星文翻譯官的快樂！
+4. 可透過 Mod Menu 模組選單，或在聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟自訂外觀設定介面。
 
 ## 開發與測試指南
 

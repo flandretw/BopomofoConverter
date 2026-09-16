@@ -109,7 +109,7 @@ tasks {
         val mixinJava = "JAVA_${requiredJava.majorVersion}"
         filesMatching("*.mixins.json") { expand("java" to mixinJava) }
 
-        if (sc.current.parsed >= "26.1") {
+        if (!project.hasProperty("deps.modmenu")) {
             doLast {
                 val fmj = destinationDir.resolve("fabric.mod.json")
                 if (fmj.exists()) {

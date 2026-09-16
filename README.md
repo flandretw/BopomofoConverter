@@ -56,6 +56,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 1. Ensure you have downloaded the mod that matches your Minecraft version, and have installed the **Fabric/Quilt Loader**.
 2. Toss the compiled `.jar` file into your `mods` folder.
 3. Enter the game, open the chat, and enjoy your new life as the server's supreme Martian Translator!
+4. Open the settings screen anytime via Mod Menu, or by typing `/bopomofo` (or `/bopomofo-translator`) in the chat.
 
 ## Development & Testing
 
