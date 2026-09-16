@@ -55,6 +55,8 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 3. Enter the game, open the chat, and enjoy deciphering everyone's Martian gibberish.
 4. Open the settings screen anytime via Mod Menu, or by typing `/bopomofo` (or `/bopomofo-translator`) in the chat.
 
+![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](https://raw.githubusercontent.com/flandretw/BopomofoTranslator/master/docs/images/menu.webp)
+
 ## AI Disclosure & Transparency
 
 In compliance with Modrinth's Generative AI Policy:

@@ -64,6 +64,8 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 3. Enter the game, open the chat, and enjoy deciphering everyone's Martian gibberish.
 4. Open the settings screen anytime via Mod Menu, or by typing `/bopomofo` (or `/bopomofo-translator`) in the chat.
 
+![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](docs/images/menu.webp)
+
 ## Development & Testing
 
 This project uses **Stonecutter** for cross-version 1.20.1, 1.21.11, and 26.2 development and build management, avoiding the need to manually switch branches. Use the following Gradle commands:
