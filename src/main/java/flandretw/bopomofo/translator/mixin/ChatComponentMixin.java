@@ -2,12 +2,6 @@ package flandretw.bopomofo.translator.mixin;
 
 import flandretw.bopomofo.translator.BopomofoConverter;
 import net.minecraft.client.gui.components.ChatComponent;
-//? if >=26.2 {
-/*import net.minecraft.client.multiplayer.chat.GuiMessageTag;
-*///?} else {
-import net.minecraft.client.GuiMessageTag;
-//?}
-import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;

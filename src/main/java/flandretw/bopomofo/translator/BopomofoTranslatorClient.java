@@ -23,9 +23,9 @@ public class BopomofoTranslatorClient implements ClientModInitializer {
             if (openConfigRequested) {
                 openConfigRequested = false;
                 //? if >=26.2 {
-                /*client.gui.setScreen(new BopomofoConfigScreen(null));
+                /*Minecraft.getInstance().gui.setScreen(new BopomofoConfigScreen(null));
                 *///?} else {
-                client.setScreen(new BopomofoConfigScreen(null));
+                Minecraft.getInstance().setScreen(new BopomofoConfigScreen(null));
                 //?}
             }
         });
