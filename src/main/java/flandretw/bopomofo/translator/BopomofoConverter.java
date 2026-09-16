@@ -219,8 +219,8 @@ public class BopomofoConverter {
 
     static String tryTranslate(String text) {
         if (text == null || text.trim().isEmpty()) return null;
-        String unshifted = unShift(text).toLowerCase();
-        String fixed = fixInvertedTone(unshifted);
+        String lowered = text.toLowerCase();
+        String fixed = fixInvertedTone(lowered);
         boolean hasIndicator = fixed.matches(".*[0-9,\\.\\/;\\-].*");
         if (STRICT_PATTERN.matcher(fixed).matches() && (hasIndicator || fixed.length() > 1)) {
             if (allSyllablesValid(fixed)) {
@@ -274,6 +274,9 @@ public class BopomofoConverter {
         // Medial YU can only be followed by specific finals: ㄝ, ㄢ, ㄣ, ㄥ
         if (medial == 'm' && finalChar != 0 && ",0p/".indexOf(finalChar) == -1) return false;
 
+        // Non-sibilant initials (i.e. not ㄓㄔㄕㄖㄗㄘㄙ) cannot stand alone without medial or final
+        if (initial != 0 && medial == 0 && finalChar == 0 && "5tgbyhn".indexOf(initial) == -1) return false;
+
         return true;
     }
 
@@ -296,23 +299,6 @@ public class BopomofoConverter {
         return new String(chars);
     }
 
-    static String unShift(String text) {
-        char[] chars = text.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            switch (chars[i]) {
-                case '@': chars[i] = '2'; break;
-                case '#': chars[i] = '3'; break;
-                case '$': chars[i] = '4'; break;
-                case '%': chars[i] = '5'; break;
-                case '^': chars[i] = '6'; break;
-                case '&': chars[i] = '7'; break;
-                case '*': chars[i] = '8'; break;
-                // Exclude common chat punctuation like !, (, ), :, ?, <, >, etc.
-            }
-        }
-        return new String(chars);
-    }
-
 
     static String fixInvertedTone(String text) {
         if (text == null || text.length() < 2) return text;
@@ -322,10 +308,16 @@ public class BopomofoConverter {
         String finals = "8ik,9ol\\.0p;\\/\\-";
         String tones = "3467";
         String notTone = "(?![" + tones + "])";
+        String notFinalOrTone = "(?![" + finals + tones + "])";
 
-        // 1. Initial + Tone + Medial + optional Final (e.g. s3u -> su3, 23ul -> 2ul3)
-        text = Pattern.compile("([" + initials + "])([" + tones + "])([" + medials + "])([" + finals + "]?)" + notTone)
+        // 1a. Initial + Tone + Medial + Final (e.g. 23ul -> 2ul3)
+        text = Pattern.compile("([" + initials + "])([" + tones + "])([" + medials + "])([" + finals + "])" + notTone)
                 .matcher(text).replaceAll("$1$3$4$2");
+
+        // 1b. Initial + Tone + Medial without Final (e.g. s3u -> su3)
+        // Must not be followed by a final (like u.3 where .3 belongs to u)
+        text = Pattern.compile("([" + initials + "])([" + tones + "])([" + medials + "])" + notFinalOrTone)
+                .matcher(text).replaceAll("$1$3$2");
 
         // 2. Initial + Tone + Final (e.g. 148 -> 184, g4/ -> g/4)
         text = Pattern.compile("([" + initials + "])([" + tones + "])([" + finals + "])" + notTone)
@@ -343,7 +335,7 @@ public class BopomofoConverter {
         // Note: We must ensure that a preceding syllable's final consonant/vowel is NOT treated as zero-initial!
         // So the preceding character before the early tone must be either start of string, whitespace, or an actual tone.
         String prev = "";
-        Pattern p5 = Pattern.compile("(^|[\\s" + tones + "])([" + tones + "])((?:[" + medials + "][" + finals + "]?)|[" + finals + "])" + notTone);
+        Pattern p5 = Pattern.compile("(^|[\\s" + tones + "])([" + tones + "])((?:[" + medials + "][" + finals + "])|(?:[" + medials + "]" + notFinalOrTone + ")|[" + finals + "])" + notTone);
         while (!text.equals(prev)) {
             prev = text;
             text = p5.matcher(text).replaceAll("$1$3$2");

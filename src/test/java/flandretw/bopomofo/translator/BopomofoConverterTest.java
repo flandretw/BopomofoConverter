@@ -144,4 +144,76 @@ public class BopomofoConverterTest {
         BopomofoConverter.BopomofoResult res = BopomofoConverter.convert("hello world");
         assertFalse(res.changed);
     }
+
+    @Test
+    public void testOnlyBlackTea() {
+        // Normal typing
+        BopomofoConverter.BopomofoResult res = BopomofoConverter.convert("53u.3cj/6t86dk3u3a87");
+        assertTrue(res.changed, "53u.3cj/6t86dk3u3a87 should convert to ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙");
+        assertEquals("ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙", res.segments.get(0).translated);
+
+        // Inverted tone in '有' (u3. -> u.3)
+        BopomofoConverter.BopomofoResult resInv1 = BopomofoConverter.convert("53u3.cj/6t86dk3u3a87");
+        assertTrue(resInv1.changed, "53u3.cj/6t86dk3u3a87 should convert to ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙");
+        assertEquals("ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙", resInv1.segments.get(0).translated);
+
+        // Inverted tone in '有' with early tone (3u. -> u.3)
+        BopomofoConverter.BopomofoResult resInv2 = BopomofoConverter.convert("533u.cj/6t86dk3u3a87");
+        assertTrue(resInv2.changed, "533u.cj/6t86dk3u3a87 should convert to ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙");
+        assertEquals("ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙", resInv2.segments.get(0).translated);
+
+        // Inverted tone in '紅' (cj6/ -> cj/6)
+        BopomofoConverter.BopomofoResult resRed = BopomofoConverter.convert("53u.3cj6/t86dk3u3a87");
+        assertTrue(resRed.changed);
+        assertEquals("ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙", resRed.segments.get(0).translated);
+
+        // Inverted tone in '茶' (t68 -> t86)
+        BopomofoConverter.BopomofoResult resTea = BopomofoConverter.convert("53u.3cj/6t68dk3u3a87");
+        assertTrue(resTea.changed);
+        assertEquals("ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙", resTea.segments.get(0).translated);
+
+        // Inverted tone in '可' (d3k -> dk3)
+        BopomofoConverter.BopomofoResult resCan = BopomofoConverter.convert("53u.3cj/6t86d3ku3a87");
+        assertTrue(resCan.changed);
+        assertEquals("ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙", resCan.segments.get(0).translated);
+
+        // Inverted tone in '嗎' (a78 -> a87)
+        BopomofoConverter.BopomofoResult resMa = BopomofoConverter.convert("53u.3cj/6t86dk3u3a78");
+        assertTrue(resMa.changed);
+        assertEquals("ㄓˇㄧㄡˇㄏㄨㄥˊㄔㄚˊㄎㄜˇㄧˇㄇㄚ˙", resMa.segments.get(0).translated);
+    }
+
+    @Test
+    public void testCapsLockTyping() {
+        BopomofoConverter.BopomofoResult res = BopomofoConverter.convert("JI394SU3");
+        assertTrue(res.changed, "JI394SU3 should be converted to ㄨㄛˇㄞˋㄋㄧˇ");
+        assertNotNull(res.segments);
+        assertEquals(1, res.segments.size());
+        assertEquals("JI394SU3", res.segments.get(0).original);
+        assertEquals("ㄨㄛˇㄞˋㄋㄧˇ", res.segments.get(0).translated);
+    }
+
+    @Test
+    public void testYouAreOne() {
+        String input = "你是一個，一個一個一個（su3g4u6ek7，u6ek7u6ek7u6ek7）";
+        BopomofoConverter.BopomofoResult res = BopomofoConverter.convert(input);
+        assertTrue(res.changed);
+        assertNotNull(res.segments);
+        // segments:
+        // 0: "你是一個，一個一個一個（"
+        // 1: "su3g4u6ek7" -> "ㄋㄧˇㄕˋㄧˊㄍㄜ˙"
+        // 2: "，"
+        // 3: "u6ek7u6ek7u6ek7" -> "ㄧˊㄍㄜ˙ㄧˊㄍㄜ˙ㄧˊㄍㄜ˙"
+        // 4: "）"
+        assertEquals("你是一個，一個一個一個（", res.segments.get(0).original);
+        assertNull(res.segments.get(0).translated);
+        assertEquals("su3g4u6ek7", res.segments.get(1).original);
+        assertEquals("ㄋㄧˇㄕˋㄧˊㄍㄜ˙", res.segments.get(1).translated);
+        assertEquals("，", res.segments.get(2).original);
+        assertNull(res.segments.get(2).translated);
+        assertEquals("u6ek7u6ek7u6ek7", res.segments.get(3).original);
+        assertEquals("ㄧˊㄍㄜ˙ㄧˊㄍㄜ˙ㄧˊㄍㄜ˙", res.segments.get(3).translated);
+        assertEquals("）", res.segments.get(4).original);
+        assertNull(res.segments.get(4).translated);
+    }
 }
