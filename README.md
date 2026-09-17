@@ -6,8 +6,8 @@
 
 [English](README.md) | [臺灣正體中文](README-zh_TW.md)
 
-> ⚠️ **Disclaimer**  
-> This project was forged using **Gemini "Vibe Coding"**, fueled by AI magic and excessive amounts of digital fries. **Proceed with caution**! If the UI starts dancing or the code looks like a magical incantation, don't worry—it's just the vibe 🪄
+> **Disclaimer**  
+> This project was forged using **Gemini "Vibe Coding"**, fueled by AI magic and excessive amounts of digital fries. **Proceed with caution**! If the UI starts dancing or the code looks like a magical incantation, don't worry—it's just the vibe.
 
 "I can read all the alien gibberish you typed."
 
