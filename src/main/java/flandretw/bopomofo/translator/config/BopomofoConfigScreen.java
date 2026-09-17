@@ -2,7 +2,7 @@ package flandretw.bopomofo.translator.config;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
-//? if >=26.2 {
+//? if >=26.1 {
 /*import net.minecraft.client.gui.GuiGraphicsExtractor;
 *///?} else {
 import net.minecraft.client.gui.GuiGraphics;
@@ -100,7 +100,7 @@ public class BopomofoConfigScreen extends Screen {
         closeScreen();
     }
 
-    //? if >=26.2 {
+    //? if >=26.1 {
     /*@Override
     public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
         super.extractRenderState(context, mouseX, mouseY, delta);

@@ -2,7 +2,7 @@ package flandretw.bopomofo.translator;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-//? if >=26.2 {
+//? if >=26.1 {
 /*import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 *///?} else {
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
@@ -31,7 +31,7 @@ public class BopomofoTranslatorClient implements ClientModInitializer {
         });
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            //? if >=26.2 {
+            //? if >=26.1 {
             /*var openConfig = ClientCommands.literal("bopomofo")
                 .executes(context -> {
                     openConfigRequested = true;

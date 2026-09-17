@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(ChatComponent.class)
 public class ChatComponentMixin {
 
-    //? if >=26.2 {
+    //? if >=26.1 {
     /*@ModifyVariable(method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/multiplayer/chat/GuiMessageSource;Lnet/minecraft/client/multiplayer/chat/GuiMessageTag;)V", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private Component modifyChatMessage(Component originalMessage) {
         if (originalMessage == null)

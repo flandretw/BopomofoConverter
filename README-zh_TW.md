@@ -63,14 +63,14 @@
 2. 將下載好的 `.jar` 模組檔案放進您的 `.minecraft/mods` 資料夾。
 3. 進入遊戲，打開聊天室，享受看懂大家火星文的樂趣。
 4. 開啟外觀設定介面：
-   - **Minecraft 1.20.1 與 1.21.11**：可透過 Mod Menu 模組選單，或在聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟。
+   - **Minecraft 1.20.1、1.21.11 與 26.1**：可透過 Mod Menu 模組選單，或在聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟。
    - **Minecraft 26.2**：請在聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟。
 
 ![遊戲內外觀設定介面截圖：可自訂懸浮文字顏色、粗體、斜體與底線樣式](docs/images/menu.webp)
 
 ## 開發與測試指南
 
-本專案採用 **Stonecutter** 來進行 1.20.1、1.21.11 與 26.2 的跨版本開發與編譯管理，無需手動切換分支或複製程式碼。您可以透過以下 Gradle 指令來進行開發與測試：
+本專案採用 **Stonecutter** 來進行 1.20.1、1.21.11、26.1 與 26.2 的跨版本開發與編譯管理，無需手動切換分支或複製程式碼。您可以透過以下 Gradle 指令來進行開發與測試：
 
 * **編譯所有支援的版本：**
   ```bash
@@ -82,11 +82,13 @@
   我們已經將各個版本的測試環境完全隔離，擁有各自獨立的 `run` 目錄，您可以直接透過指令啟動特定版本測試，例如：
   - 測試 1.20.1 版本：`.\gradlew :1.20.1:runClient`
   - 測試 1.21.11 版本：`.\gradlew :1.21.11:runClient`
+  - 測試 26.1 版本：`.\gradlew :26.1.x:runClient`
   - 測試 26.2 版本：`.\gradlew :26.2.x:runClient`
 
 * **切換 IDE 活躍編輯版本：**
   ```bash
   .\gradlew "Set active project to 1.21.11"
+  .\gradlew "Set active project to 26.1.x"
   .\gradlew "Set active project to 26.2.x"
   ```
 
