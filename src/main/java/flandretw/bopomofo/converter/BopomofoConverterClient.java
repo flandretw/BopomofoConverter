@@ -1,4 +1,4 @@
-package flandretw.bopomofo.translator;
+package flandretw.bopomofo.converter;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -9,10 +9,10 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 //?}
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.Minecraft;
-import flandretw.bopomofo.translator.config.BopomofoConfig;
-import flandretw.bopomofo.translator.config.BopomofoConfigScreen;
+import flandretw.bopomofo.converter.config.BopomofoConfig;
+import flandretw.bopomofo.converter.config.BopomofoConfigScreen;
 
-public class BopomofoTranslatorClient implements ClientModInitializer {
+public class BopomofoConverterClient implements ClientModInitializer {
     private static boolean openConfigRequested = false;
 
     @Override
@@ -38,7 +38,7 @@ public class BopomofoTranslatorClient implements ClientModInitializer {
                     return 1;
                 });
 
-            var openConfigAlias = ClientCommands.literal("bopomofo-translator")
+            var openConfigAlias = ClientCommands.literal("bopomofo-converter")
                 .executes(context -> {
                     openConfigRequested = true;
                     return 1;
@@ -50,7 +50,7 @@ public class BopomofoTranslatorClient implements ClientModInitializer {
                     return 1;
                 });
 
-            var openConfigAlias = ClientCommandManager.literal("bopomofo-translator")
+            var openConfigAlias = ClientCommandManager.literal("bopomofo-converter")
                 .executes(context -> {
                     openConfigRequested = true;
                     return 1;

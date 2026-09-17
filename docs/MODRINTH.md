@@ -1,15 +1,15 @@
-# Bopomofo Translator - 注音亂碼翻譯蒟蒻
+# Bopomofo Converter - 注音轉換器
 
 "I can read all the alien gibberish you typed."
 
 ## What is this?
 
-**Bopomofo Translator** is a client-side Fabric mod designed to save you from those awkward moments when you forgot to switch your Chinese input method.
+**Bopomofo Converter** is a client-side Fabric mod designed to save you from those awkward moments when you forgot to switch your Chinese input method.
 
 Do you often forget to switch to your Chinese input method on a server, sending out cryptic codes like `ji394su3`?  
 And then the chat gets flooded with `?`, forcing you to switch your keyboard and awkwardly re-type "I love you"?
 
-This mod leaves your original message intact for everyone to laugh at, while displaying **hover text with the translated Bopomofo** whenever you move your cursor over the gibberish.
+This mod leaves your original message intact for everyone to laugh at, while displaying **hover text with the converted Bopomofo** whenever you move your cursor over the gibberish.
 
 Best of all, **this is a purely client-side mod**. The server requires zero installation. You install it yourself, and you're good to go.
 
@@ -20,7 +20,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 | **Side** | **Client-side only** (Do not install on servers) |
 | **Mod Loader** | **Fabric Loader** (Requires **Fabric API**) |
 | **Minecraft & Java** | • **1.20.1** (Java 17)<br>• **1.21.11** (Java 21)<br>• **26.1 / 26.2** (Java 25) |
-| **Configuration GUI** | [Mod Menu](https://modrinth.com/mod/modmenu) (optional) or in-game command `/bopomofo` (or `/bopomofo-translator`) |
+| **Configuration GUI** | [Mod Menu](https://modrinth.com/mod/modmenu) (optional) or in-game command `/bopomofo` (or `/bopomofo-converter`) |
 
 ![In-game chat demonstration showing the mouse cursor hovering over the first part of the gibberish text "zo t;62k7vup vu0", revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄒㄧㄣ ㄒㄧㄢ" meaning "very fresh"](https://raw.githubusercontent.com/flandretw/BopomofoTranslator/master/docs/images/very_fresh.webp)
 
@@ -63,7 +63,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 2. Download the mod `.jar` file matching your Minecraft version and place it into your `.minecraft/mods` folder.
 3. Launch Minecraft, open the chat, and enjoy deciphering everyone's Martian gibberish!
 4. Customize appearance anytime:
-   Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-translator`) in chat.
+   Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-converter`) in chat.
 
 ![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](https://raw.githubusercontent.com/flandretw/BopomofoTranslator/master/docs/images/menu.webp)
 
@@ -82,6 +82,6 @@ A: Nope. This is a **purely client-side mod**. Translations happen locally on yo
 A: Yes, it processes all messages in the chat HUD, including your own.
 
 **Links & License**  
-* Source Code: [GitHub Repository](https://github.com/flandretw/BopomofoTranslator)
-* Issue Tracker: [GitHub Issues](https://github.com/flandretw/BopomofoTranslator/issues)
-* License: [MIT License](https://github.com/flandretw/BopomofoTranslator/blob/master/LICENSE)
+* Source Code: [GitHub Repository](https://github.com/flandretw/BopomofoConverter)
+* Issue Tracker: [GitHub Issues](https://github.com/flandretw/BopomofoConverter/issues)
+* License: [MIT License](https://github.com/flandretw/BopomofoConverter/blob/master/LICENSE)

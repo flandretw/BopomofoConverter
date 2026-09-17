@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="src/main/resources/assets/bopomofo-translator/icon.png" alt="Bopomofo Translator Icon" width="128">
+  <img src="src/main/resources/assets/bopomofo-converter/icon.png" alt="Bopomofo Converter Icon" width="128">
 </p>
 
-# 注音亂碼翻譯蒟蒻 - Bopomofo Translator
+# 注音轉換器 - Bopomofo Converter
 
 [English](README.md) | [臺灣正體中文](README-zh_TW.md)
 
@@ -13,12 +13,12 @@
 
 ## 這是什麼酷東西？
 
-**注音亂碼翻譯蒟蒻**，專門用來拯救「忘記切換輸入法」各種社死瞬間的 Fabric 用戶端模組。
+**注音轉換器**，專門用來拯救「忘記切換輸入法」各種社死瞬間的 Fabric 用戶端模組。
 
 你是不是常常在伺服器打字時忘記切換中文輸入法，送出一串像 `ji394su3` 這樣的神祕代碼？
 然後聊天室立刻被問號淹沒，你還得切換輸入法再尷尬地重打一次「我愛你」？
 
-這款模組會默默保留原文讓大家笑，但只要把滑鼠游標移到亂碼上，就會浮現出**翻譯後的注音懸浮文字**。
+這款模組會默默保留原文讓大家笑，但只要把滑鼠游標移到亂碼上，就會浮現出**轉換後的注音懸浮文字**。
 
 而且**這是一個純用戶端模組**，伺服器不需要安裝任何東西，你一個人裝就能自己看得懂。
 
@@ -63,7 +63,7 @@
 2. 將下載好的 `.jar` 模組檔案放進您的 `.minecraft/mods` 資料夾。
 3. 進入遊戲，打開聊天室，享受看懂大家火星文的樂趣。
 4. 開啟外觀設定介面：
-   可透過 [Mod Menu](https://modrinth.com/mod/modmenu) 模組選單，或在遊戲聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟。
+   可透過 [Mod Menu](https://modrinth.com/mod/modmenu) 模組選單，或在遊戲聊天室輸入指令 `/bopomofo`（或 `/bopomofo-converter`）開啟。
 
 ![遊戲內外觀設定介面截圖：可自訂懸浮文字顏色、粗體、斜體與底線樣式](docs/images/menu.webp)
 

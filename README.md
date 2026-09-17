@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="src/main/resources/assets/bopomofo-translator/icon.png" alt="Bopomofo Translator Icon" width="128">
+  <img src="src/main/resources/assets/bopomofo-converter/icon.png" alt="Bopomofo Converter Icon" width="128">
 </p>
 
-# Bopomofo Translator - 注音亂碼翻譯蒟蒻
+# Bopomofo Converter - 注音轉換器
 
 [English](README.md) | [臺灣正體中文](README-zh_TW.md)
 
@@ -13,12 +13,12 @@
 
 ## What is this?
 
-**Bopomofo Translator** is a client-side Fabric mod designed to save you from those awkward moments when you forgot to switch your input method.
+**Bopomofo Converter** is a client-side Fabric mod designed to save you from those awkward moments when you forgot to switch your input method.
 
 Do you often forget to switch to your Chinese input method on a server, sending out cryptic codes like `ji394su3`?
 And then the chat gets flooded with `?`, forcing you to switch your keyboard and awkwardly re-type "I love you"?
 
-This mod leaves your original message intact for everyone to laugh at, while displaying **hover text with the translated Bopomofo** whenever you move your cursor over the gibberish.
+This mod leaves your original message intact for everyone to laugh at, while displaying **hover text with the converted Bopomofo** whenever you move your cursor over the gibberish.
 
 Best of all, **this is a purely client-side mod**. The server requires zero installation. You install it yourself, and you're good to go.
 
@@ -44,7 +44,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
   ![CapsLock uppercase text automatically normalized and translated](docs/images/miss.webp)
 
 * **Punctuation & Multi-Word Segmentation**  
-  Words adjacent to full-width punctuation won't shatter syllables. Mixed sentences containing Chinese, punctuation, and multiple Bopomofo phrases—such as "你是一個，一個一個一個" (`su3g4u6ek7，u6ek7u6ek7u6ek7`)—are parsed independently with punctuation preserved.
+  Words adjacent to full-width punctuation won't shatter syllables. Mixed sentences containing Chinese, punctuation, and multiple Bopomofo phrases—such as "你是一個，一個一個一個" (`su3g4u6ek7，u6ek7u6ek7u6ek7`）—are parsed independently with punctuation preserved.
 
   ![Punctuation and multiple Bopomofo phrases independently parsed](docs/images/you_are_a_a_a_a.webp)
 
@@ -63,7 +63,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 2. Download the mod `.jar` file matching your Minecraft version and place it into your `.minecraft/mods` folder.
 3. Launch Minecraft, open the chat, and enjoy deciphering everyone's Martian gibberish!
 4. Customize appearance anytime:
-   Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-translator`) in chat.
+   Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-converter`) in chat.
 
 ![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](docs/images/menu.webp)
 

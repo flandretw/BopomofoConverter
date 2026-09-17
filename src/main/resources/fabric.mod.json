@@ -1,33 +1,33 @@
 {
 	"schemaVersion": 1,
-	"id": "bopomofo-translator",
+	"id": "bopomofo-converter",
 	"version": "${version}",
-	"name": "Bopomofo Translator",
-	"description": "From the Minecraft universe comes a savior — the Bopomofo Translator! A super-smart mod dedicated to saving those brain-fart moments when you forgot to switch your input method!",
+	"name": "Bopomofo Converter",
+	"description": "From the Minecraft universe comes a savior — the Bopomofo Converter! A super-smart mod dedicated to saving those brain-fart moments when you forgot to switch your input method!",
 	"authors": [
 		"flandretw"
 	],
 	"contact": {
 		"homepage": "https://github.com/flandretw",
-		"sources": "https://github.com/flandretw/BopomofoTranslator",
-		"issues": "https://github.com/flandretw/BopomofoTranslator/issues"
+		"sources": "https://github.com/flandretw/BopomofoConverter",
+		"issues": "https://github.com/flandretw/BopomofoConverter/issues"
 	},
 	"license": "MIT",
-	"icon": "assets/bopomofo-translator/icon.png",
+	"icon": "assets/bopomofo-converter/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"main": [
-			"flandretw.bopomofo.translator.BopomofoTranslator"
+			"flandretw.bopomofo.converter.BopomofoConverterMod"
 		],
 		"client": [
-			"flandretw.bopomofo.translator.BopomofoTranslatorClient"
+			"flandretw.bopomofo.converter.BopomofoConverterClient"
 		],
 		"modmenu": [
-			"flandretw.bopomofo.translator.compat.ModMenuIntegration"
+			"flandretw.bopomofo.converter.compat.ModMenuIntegration"
 		]
 	},
 	"mixins": [
-		"bopomofo-translator.mixins.json"
+		"bopomofo-converter.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.19.5",

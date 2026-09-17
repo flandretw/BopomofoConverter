@@ -1,4 +1,4 @@
-package flandretw.bopomofo.translator;
+package flandretw.bopomofo.converter;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

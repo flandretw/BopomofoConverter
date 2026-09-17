@@ -1,6 +1,6 @@
-package flandretw.bopomofo.translator.mixin;
+package flandretw.bopomofo.converter.mixin;
 
-import flandretw.bopomofo.translator.BopomofoConverter;
+import flandretw.bopomofo.converter.BopomofoConverter;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
@@ -49,7 +49,7 @@ public class ChatComponentMixin {
                 if (result.changed) {
                     changed = true;
                     newText = Component.empty(); // Discard the original single text body
-                    flandretw.bopomofo.translator.config.BopomofoConfig config = flandretw.bopomofo.translator.config.BopomofoConfig.getInstance();
+                    flandretw.bopomofo.converter.config.BopomofoConfig config = flandretw.bopomofo.converter.config.BopomofoConfig.getInstance();
                     for (BopomofoConverter.Segment seg : result.segments) {
                         MutableComponent segText = Component.literal(seg.original);
                         if (seg.translated != null) {

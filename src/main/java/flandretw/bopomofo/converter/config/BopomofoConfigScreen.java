@@ -1,4 +1,4 @@
-package flandretw.bopomofo.translator.config;
+package flandretw.bopomofo.converter.config;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;

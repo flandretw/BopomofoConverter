@@ -30,4 +30,4 @@ stonecutter {
     }
 }
 
-rootProject.name = "BopomofoTranslator"
+rootProject.name = "BopomofoConverter"

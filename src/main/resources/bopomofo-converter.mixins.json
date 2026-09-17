@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "flandretw.bopomofo.translator.mixin",
+  "package": "flandretw.bopomofo.converter.mixin",
   "compatibilityLevel": "${java}",
   "mixins": [
   ],

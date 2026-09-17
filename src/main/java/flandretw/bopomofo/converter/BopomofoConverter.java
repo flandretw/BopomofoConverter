@@ -1,4 +1,4 @@
-package flandretw.bopomofo.translator;
+package flandretw.bopomofo.converter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,8 +1,8 @@
-package flandretw.bopomofo.translator.compat;
+package flandretw.bopomofo.converter.compat;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import flandretw.bopomofo.translator.config.BopomofoConfigScreen;
+import flandretw.bopomofo.converter.config.BopomofoConfigScreen;
 
 public class ModMenuIntegration implements ModMenuApi {
     @Override

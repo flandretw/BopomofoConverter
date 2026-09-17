@@ -1,7 +1,7 @@
 # See https://stonecutter.kikugie.dev/wiki/config/properties#centralized-properties
-mod.id = "bopomofo-translator"
-mod.name = "BopomofoTranslator"
-mod.group = "flandretw.bopomofo.translator"
+mod.id = "bopomofo-converter"
+mod.name = "BopomofoConverter"
+mod.group = "flandretw.bopomofo.converter"
 mod.version = "1.0.0"
 
 deps.fabric_loader = "0.19.5"
