@@ -63,8 +63,7 @@
 2. 將下載好的 `.jar` 模組檔案放進您的 `.minecraft/mods` 資料夾。
 3. 進入遊戲，打開聊天室，享受看懂大家火星文的樂趣。
 4. 開啟外觀設定介面：
-   - **Minecraft 1.20.1、1.21.11 與 26.1**：可透過 Mod Menu 模組選單，或在聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟。
-   - **Minecraft 26.2**：請在聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟。
+   可透過 [Mod Menu](https://modrinth.com/mod/modmenu) 模組選單，或在遊戲聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟。
 
 ![遊戲內外觀設定介面截圖：可自訂懸浮文字顏色、粗體、斜體與底線樣式](docs/images/menu.webp)
 

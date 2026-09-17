@@ -63,8 +63,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 2. Download the mod `.jar` file matching your Minecraft version and place it into your `.minecraft/mods` folder.
 3. Launch Minecraft, open the chat, and enjoy deciphering everyone's Martian gibberish!
 4. Customize appearance anytime:
-   - **Minecraft 1.20.1, 1.21.11 & 26.1**: Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-translator`) in chat.
-   - **Minecraft 26.2**: Type `/bopomofo` (or `/bopomofo-translator`) in chat.
+   Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-translator`) in chat.
 
 ![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](docs/images/menu.webp)
 

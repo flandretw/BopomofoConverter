@@ -20,7 +20,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 | **Side** | **Client-side only** (Do not install on servers) |
 | **Mod Loader** | **Fabric Loader** (Requires **Fabric API**) |
 | **Minecraft & Java** | • **1.20.1** (Java 17)<br>• **1.21.11** (Java 21)<br>• **26.1 / 26.2** (Java 25) |
-| **Configuration GUI** | • **1.20.1 / 1.21.11 / 26.1**: [Mod Menu](https://modrinth.com/mod/modmenu) (optional) or in-game command `/bopomofo`<br>• **26.2**: In-game command `/bopomofo` (or `/bopomofo-translator`) |
+| **Configuration GUI** | [Mod Menu](https://modrinth.com/mod/modmenu) (optional) or in-game command `/bopomofo` (or `/bopomofo-translator`) |
 
 ![In-game chat demonstration showing the mouse cursor hovering over the first part of the gibberish text "zo t;62k7vup vu0", revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄒㄧㄣ ㄒㄧㄢ" meaning "very fresh"](https://raw.githubusercontent.com/flandretw/BopomofoTranslator/master/docs/images/very_fresh.webp)
 
@@ -63,8 +63,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 2. Download the mod `.jar` file matching your Minecraft version and place it into your `.minecraft/mods` folder.
 3. Launch Minecraft, open the chat, and enjoy deciphering everyone's Martian gibberish!
 4. Customize appearance anytime:
-   - **Minecraft 1.20.1, 1.21.11 & 26.1**: Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-translator`) in chat.
-   - **Minecraft 26.2**: Type `/bopomofo` (or `/bopomofo-translator`) in chat.
+   Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-translator`) in chat.
 
 ![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](https://raw.githubusercontent.com/flandretw/BopomofoTranslator/master/docs/images/menu.webp)
 
