@@ -14,6 +14,7 @@ import net.minecraft.ChatFormatting;
 public class BopomofoConfigScreen extends Screen {
     private final Screen parent;
     private final BopomofoConfig config;
+    private Button resetBtn;
 
     public BopomofoConfigScreen(Screen parent) {
         super(Component.translatable("bopomofo.config.title"));
@@ -30,14 +31,14 @@ public class BopomofoConfigScreen extends Screen {
         int startY = Math.max(15, (this.height - totalHeight) / 2);
         int btn0Y = startY + 28;
 
-        // 顏色切換按鈕
+        // Color toggle button
         ChatFormatting[] colors = new ChatFormatting[] {
             ChatFormatting.BLACK, ChatFormatting.DARK_BLUE, ChatFormatting.DARK_GREEN, ChatFormatting.DARK_AQUA,
             ChatFormatting.DARK_RED, ChatFormatting.DARK_PURPLE, ChatFormatting.GOLD, ChatFormatting.GRAY,
             ChatFormatting.DARK_GRAY, ChatFormatting.BLUE, ChatFormatting.GREEN, ChatFormatting.AQUA,
             ChatFormatting.RED, ChatFormatting.LIGHT_PURPLE, ChatFormatting.YELLOW, ChatFormatting.WHITE
         };
-        this.addRenderableWidget(Button.builder(getColorText(), button -> {
+        Button colorBtn = Button.builder(getColorText(), button -> {
             int curIdx = 15;
             for (int i = 0; i < colors.length; i++) {
                 if (colors[i] == config.textColor) {
@@ -47,32 +48,58 @@ public class BopomofoConfigScreen extends Screen {
             }
             config.textColor = colors[(curIdx + 1) % colors.length];
             button.setMessage(getColorText());
-        }).bounds(centerX - buttonWidth / 2, btn0Y, buttonWidth, buttonHeight).build());
+            updateResetButton();
+        }).bounds(centerX - buttonWidth / 2, btn0Y, buttonWidth, buttonHeight).build();
+        this.addRenderableWidget(colorBtn);
 
-        // 粗體開關
-        this.addRenderableWidget(Button.builder(getBoolText("bopomofo.config.bold", config.bold), button -> {
+        // Bold toggle
+        Button boldBtn = Button.builder(getBoolText("bopomofo.config.bold", config.bold, ChatFormatting.BOLD), button -> {
             config.bold = !config.bold;
-            button.setMessage(getBoolText("bopomofo.config.bold", config.bold));
-        }).bounds(centerX - buttonWidth / 2, btn0Y + 24, buttonWidth, buttonHeight).build());
+            button.setMessage(getBoolText("bopomofo.config.bold", config.bold, ChatFormatting.BOLD));
+            updateResetButton();
+        }).bounds(centerX - buttonWidth / 2, btn0Y + 24, buttonWidth, buttonHeight).build();
+        this.addRenderableWidget(boldBtn);
 
-        // 斜體開關
-        this.addRenderableWidget(Button.builder(getBoolText("bopomofo.config.italic", config.italic), button -> {
+        // Italic toggle
+        Button italicBtn = Button.builder(getBoolText("bopomofo.config.italic", config.italic, ChatFormatting.ITALIC), button -> {
             config.italic = !config.italic;
-            button.setMessage(getBoolText("bopomofo.config.italic", config.italic));
-        }).bounds(centerX - buttonWidth / 2, btn0Y + 48, buttonWidth, buttonHeight).build());
+            button.setMessage(getBoolText("bopomofo.config.italic", config.italic, ChatFormatting.ITALIC));
+            updateResetButton();
+        }).bounds(centerX - buttonWidth / 2, btn0Y + 48, buttonWidth, buttonHeight).build();
+        this.addRenderableWidget(italicBtn);
 
-        // 底線開關
-        this.addRenderableWidget(
-                Button.builder(getBoolText("bopomofo.config.underline", config.underline), button -> {
-                    config.underline = !config.underline;
-                    button.setMessage(getBoolText("bopomofo.config.underline", config.underline));
-                }).bounds(centerX - buttonWidth / 2, btn0Y + 72, buttonWidth, buttonHeight).build());
+        // Underline toggle
+        Button underlineBtn = Button.builder(getBoolText("bopomofo.config.underline", config.underline, ChatFormatting.UNDERLINE), button -> {
+            config.underline = !config.underline;
+            button.setMessage(getBoolText("bopomofo.config.underline", config.underline, ChatFormatting.UNDERLINE));
+            updateResetButton();
+        }).bounds(centerX - buttonWidth / 2, btn0Y + 72, buttonWidth, buttonHeight).build();
+        this.addRenderableWidget(underlineBtn);
 
-        // 確定按鈕
+        // Reset and Done buttons
+        int halfWidth = (buttonWidth - 4) / 2;
+        this.resetBtn = Button.builder(Component.translatable("bopomofo.config.reset"), button -> {
+            config.reset();
+            colorBtn.setMessage(getColorText());
+            boldBtn.setMessage(getBoolText("bopomofo.config.bold", config.bold, ChatFormatting.BOLD));
+            italicBtn.setMessage(getBoolText("bopomofo.config.italic", config.italic, ChatFormatting.ITALIC));
+            underlineBtn.setMessage(getBoolText("bopomofo.config.underline", config.underline, ChatFormatting.UNDERLINE));
+            updateResetButton();
+        }).bounds(centerX - buttonWidth / 2, startY + 146, halfWidth, buttonHeight).build();
+        this.addRenderableWidget(this.resetBtn);
+
         this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> {
             config.save();
             closeScreen();
-        }).bounds(centerX - buttonWidth / 2, startY + 146, buttonWidth, buttonHeight).build());
+        }).bounds(centerX + 2, startY + 146, halfWidth, buttonHeight).build());
+
+        updateResetButton();
+    }
+
+    private void updateResetButton() {
+        if (this.resetBtn != null) {
+            this.resetBtn.active = !this.config.isDefault();
+        }
     }
 
     private void closeScreen() {
@@ -84,14 +111,18 @@ public class BopomofoConfigScreen extends Screen {
     }
 
     private Component getColorText() {
-        String name = config.textColor.name().toLowerCase();
-        Component colorName = Component.literal(name.substring(0, 1).toUpperCase() + name.substring(1))
+        String name = config.textColor.name().toLowerCase(java.util.Locale.ROOT);
+        Component colorName = Component.translatable("bopomofo.color." + name)
                 .withStyle(config.textColor);
         return Component.translatable("bopomofo.config.format", Component.translatable("bopomofo.config.color"), colorName);
     }
 
-    private Component getBoolText(String key, boolean value) {
-        return Component.translatable("bopomofo.config.format", Component.translatable(key), CommonComponents.optionStatus(value));
+    private Component getBoolText(String key, boolean value, ChatFormatting formatting) {
+        Component status = CommonComponents.optionStatus(value);
+        if (value && formatting != null) {
+            status = status.copy().withStyle(formatting);
+        }
+        return Component.translatable("bopomofo.config.format", Component.translatable(key), status);
     }
 
     @Override

@@ -7,5 +7,22 @@
   "bopomofo.config.italic": "Italic text",
   "bopomofo.config.underline": "Underline text",
   "bopomofo.config.warning": "Note: Settings apply to new messages only",
-  "bopomofo.config.format": "%s: %s"
+  "bopomofo.config.reset": "Reset",
+  "bopomofo.config.format": "%s: %s",
+  "bopomofo.color.black": "Black",
+  "bopomofo.color.dark_blue": "Dark Blue",
+  "bopomofo.color.dark_green": "Dark Green",
+  "bopomofo.color.dark_aqua": "Dark Aqua",
+  "bopomofo.color.dark_red": "Dark Red",
+  "bopomofo.color.dark_purple": "Dark Purple",
+  "bopomofo.color.gold": "Gold",
+  "bopomofo.color.gray": "Gray",
+  "bopomofo.color.dark_gray": "Dark Gray",
+  "bopomofo.color.blue": "Blue",
+  "bopomofo.color.green": "Green",
+  "bopomofo.color.aqua": "Aqua",
+  "bopomofo.color.red": "Red",
+  "bopomofo.color.light_purple": "Light Purple",
+  "bopomofo.color.yellow": "Yellow",
+  "bopomofo.color.white": "White"
 }

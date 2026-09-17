@@ -7,5 +7,22 @@
   "bopomofo.config.italic": "斜體",
   "bopomofo.config.underline": "底線",
   "bopomofo.config.warning": "注意：新設定僅對之後的訊息生效",
-  "bopomofo.config.format": "%s：%s"
+  "bopomofo.config.reset": "重設",
+  "bopomofo.config.format": "%s：%s",
+  "bopomofo.color.black": "黑色",
+  "bopomofo.color.dark_blue": "深藍色",
+  "bopomofo.color.dark_green": "深綠色",
+  "bopomofo.color.dark_aqua": "暗水藍色",
+  "bopomofo.color.dark_red": "深紅色",
+  "bopomofo.color.dark_purple": "深紫色",
+  "bopomofo.color.gold": "金色",
+  "bopomofo.color.gray": "灰色",
+  "bopomofo.color.dark_gray": "深灰色",
+  "bopomofo.color.blue": "藍色",
+  "bopomofo.color.green": "綠色",
+  "bopomofo.color.aqua": "水藍色",
+  "bopomofo.color.red": "紅色",
+  "bopomofo.color.light_purple": "淡紫色",
+  "bopomofo.color.yellow": "黃色",
+  "bopomofo.color.white": "白色"
 }

@@ -16,7 +16,7 @@ public class BopomofoConverter {
     static final Pattern STRICT_PATTERN;
 
     static {
-        // Initials (聲母)
+        // Initials
         KEY_MAP.put('1', 'ㄅ');
         KEY_MAP.put('q', 'ㄆ');
         KEY_MAP.put('a', 'ㄇ');
@@ -39,12 +39,12 @@ public class BopomofoConverter {
         KEY_MAP.put('h', 'ㄘ');
         KEY_MAP.put('n', 'ㄙ');
 
-        // Medials (介音)
+        // Medials
         KEY_MAP.put('u', 'ㄧ');
         KEY_MAP.put('j', 'ㄨ');
         KEY_MAP.put('m', 'ㄩ');
 
-        // Finals (韻母)
+        // Finals
         KEY_MAP.put('8', 'ㄚ');
         KEY_MAP.put('i', 'ㄛ');
         KEY_MAP.put('k', 'ㄜ');
@@ -59,7 +59,7 @@ public class BopomofoConverter {
         KEY_MAP.put('/', 'ㄥ');
         KEY_MAP.put('-', 'ㄦ');
 
-        // Tones (聲調)
+        // Tones
         KEY_MAP.put('6', 'ˊ');
         KEY_MAP.put('3', 'ˇ');
         KEY_MAP.put('4', 'ˋ');

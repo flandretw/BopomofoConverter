@@ -26,6 +26,17 @@ public class BopomofoConfig {
     public boolean italic = false;
     public boolean underline = false;
 
+    public void reset() {
+        this.textColor = ChatFormatting.WHITE;
+        this.bold = false;
+        this.italic = false;
+        this.underline = false;
+    }
+
+    public boolean isDefault() {
+        return this.textColor == ChatFormatting.WHITE && !this.bold && !this.italic && !this.underline;
+    }
+
     private static BopomofoConfig instance;
 
     public static BopomofoConfig getInstance() {
