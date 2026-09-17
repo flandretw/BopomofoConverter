@@ -6,8 +6,8 @@
 
 [English](README.md) | [臺灣正體中文](README-zh_TW.md)
 
-> **Disclaimer**  
-> This project was forged using **Gemini "Vibe Coding"**, fueled by AI magic and excessive amounts of digital fries. **Proceed with caution**! If the UI starts dancing or the code looks like a magical incantation, don't worry—it's just the vibe.
+> ⚠️ **Disclaimer**  
+> This project was forged using **Gemini "Vibe Coding"**, fueled by AI magic and excessive amounts of digital fries. **Proceed with caution**! If the UI starts dancing or the code looks like a magical incantation, don't worry—it's just the vibe 🪄
 
 "I can read all the alien gibberish you typed."
 
@@ -59,10 +59,12 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 
 ## Setup & Installation
 
-1. Ensure you have downloaded the mod that matches your Minecraft version, and have installed the **Fabric/Quilt Loader**.
-2. Toss the compiled `.jar` file into your `mods` folder.
-3. Enter the game, open the chat, and enjoy deciphering everyone's Martian gibberish.
-4. Open the settings screen anytime via Mod Menu, or by typing `/bopomofo` (or `/bopomofo-translator`) in the chat.
+1. Ensure you have installed **Fabric Loader** and **Fabric API** for your Minecraft version.
+2. Download the mod `.jar` file matching your Minecraft version and place it into your `.minecraft/mods` folder.
+3. Launch Minecraft, open the chat, and enjoy deciphering everyone's Martian gibberish!
+4. Customize appearance anytime:
+   - **Minecraft 1.20.1 & 1.21.11**: Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-translator`) in chat.
+   - **Minecraft 26.2**: Type `/bopomofo` (or `/bopomofo-translator`) in chat.
 
 ![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](docs/images/menu.webp)
 

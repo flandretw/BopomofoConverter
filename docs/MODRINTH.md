@@ -13,6 +13,15 @@ This mod leaves your original message intact for everyone to laugh at, while dis
 
 Best of all, **this is a purely client-side mod**. The server requires zero installation. You install it yourself, and you're good to go.
 
+### Requirements & Compatibility
+
+| Component | Requirement |
+| :--- | :--- |
+| **Side** | **Client-side only** (Do not install on servers) |
+| **Mod Loader** | **Fabric Loader** (Requires **Fabric API**) |
+| **Minecraft & Java** | • **1.20.1** (Java 17)<br>• **1.21.11** (Java 21)<br>• **26.2** (Java 25) |
+| **Configuration GUI** | • **1.20.1 / 1.21.11**: [Mod Menu](https://modrinth.com/mod/modmenu) (optional) or in-game command `/bopomofo`<br>• **26.2**: In-game command `/bopomofo` (or `/bopomofo-translator`) |
+
 ![In-game chat demonstration showing the mouse cursor hovering over the first part of the gibberish text "zo t;62k7vup vu0", revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄒㄧㄣ ㄒㄧㄢ" meaning "very fresh"](https://raw.githubusercontent.com/flandretw/BopomofoTranslator/master/docs/images/very_fresh.webp)
 
 ![In-game chat demonstration showing the mouse cursor hovering over the second part of the gibberish text "zo t;62k7ao3jo4" across the comma, revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄇㄟˇ ㄨㄟˋ" meaning "very delicious"](https://raw.githubusercontent.com/flandretw/BopomofoTranslator/master/docs/images/very_delicious.webp)
@@ -50,10 +59,12 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 
 ## Setup & Installation
 
-1. Ensure you have downloaded the mod that matches your Minecraft version, and have installed the **Fabric/Quilt Loader**.
-2. Toss the compiled `.jar` file into your `mods` folder.
-3. Enter the game, open the chat, and enjoy deciphering everyone's Martian gibberish.
-4. Open the settings screen anytime via Mod Menu, or by typing `/bopomofo` (or `/bopomofo-translator`) in the chat.
+1. Ensure you have installed **Fabric Loader** and **Fabric API** for your Minecraft version.
+2. Download the mod `.jar` file matching your Minecraft version and place it into your `.minecraft/mods` folder.
+3. Launch Minecraft, open the chat, and enjoy deciphering everyone's Martian gibberish!
+4. Customize appearance anytime:
+   - **Minecraft 1.20.1 & 1.21.11**: Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-translator`) in chat.
+   - **Minecraft 26.2**: Type `/bopomofo` (or `/bopomofo-translator`) in chat.
 
 ![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](https://raw.githubusercontent.com/flandretw/BopomofoTranslator/master/docs/images/menu.webp)
 

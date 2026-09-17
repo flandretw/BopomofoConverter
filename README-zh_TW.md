@@ -6,8 +6,8 @@
 
 [English](README.md) | [臺灣正體中文](README-zh_TW.md)
 
-> **注意事項**  
-> 本專案使用 **Gemini 氛圍編碼 (Vibe Coding)** 撰寫，由 AI 魔法與過量的數位薯條驅動。**使用請注意**！如果您發現 UI 開始跳舞或程式碼看起來像某種神秘咒語，別擔心——那只是「氛圍」到位了。
+> ⚠️ **注意事項**  
+> 本專案使用 **Gemini 氛圍編碼 (Vibe Coding)** 撰寫，由 AI 魔法與過量的數位薯條驅動。**使用請注意**！如果您發現 UI 開始跳舞或程式碼看起來像某種神秘咒語，別擔心 —— 那只是「氛圍」到位了 🪄
 
 「你打的那串火星文，我全看懂了。」
 
@@ -59,10 +59,12 @@
 
 ## 安裝與使用
 
-1. 確保已下載對應 Minecraft 版本的模組，並且已安裝 **Fabric/Quilt Loader**。
-2. 將編譯好的 `.jar` 檔案丟進您的 `mods` 資料夾。
+1. 確保已安裝對應 Minecraft 版本的 **Fabric Loader** 與 **Fabric API**（必裝依賴）。
+2. 將下載好的 `.jar` 模組檔案放進您的 `.minecraft/mods` 資料夾。
 3. 進入遊戲，打開聊天室，享受看懂大家火星文的樂趣。
-4. 可透過 Mod Menu 模組選單，或在聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟自訂外觀設定介面。
+4. 開啟外觀設定介面：
+   - **Minecraft 1.20.1 與 1.21.11**：可透過 Mod Menu 模組選單，或在聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟。
+   - **Minecraft 26.2**：請在聊天室輸入指令 `/bopomofo`（或 `/bopomofo-translator`）開啟。
 
 ![遊戲內外觀設定介面截圖：可自訂懸浮文字顏色、粗體、斜體與底線樣式](docs/images/menu.webp)
 
