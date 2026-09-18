@@ -1,5 +1,8 @@
 # Bopomofo Converter - 注音轉換器
 
+> 🇹🇼 **中文使用者**：點此查看 [GitHub 臺灣正體中文說明](https://github.com/flandretw/BopomofoConverter/blob/master/README-zh_TW.md)  
+> (Traditional Chinese documentation is available on [GitHub](https://github.com/flandretw/BopomofoConverter/blob/master/README-zh_TW.md).)
+
 "I can read all the alien gibberish you typed."
 
 ## What is this?
