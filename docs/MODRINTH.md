@@ -1,7 +1,7 @@
 # Bopomofo Converter - 注音轉換器
 
-> 🇹🇼 **中文使用者**：點此查看 [GitHub 臺灣正體中文說明](https://github.com/flandretw/BopomofoConverter/blob/master/README-zh_TW.md)  
-> (Traditional Chinese documentation is available on [GitHub](https://github.com/flandretw/BopomofoConverter/blob/master/README-zh_TW.md).)
+> 🇹🇼 **中文使用者**：點此查看 [GitHub 臺灣正體中文說明](https://github.com/flandretw/BopomofoConverter/blob/main/README-zh_TW.md)  
+> (Traditional Chinese documentation is available on [GitHub](https://github.com/flandretw/BopomofoConverter/blob/main/README-zh_TW.md).)
 
 "I can read all the alien gibberish you typed."
 
@@ -25,31 +25,31 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 | **Minecraft & Java** | • **1.20.1** (Java 17)<br>• **1.21.11** (Java 21)<br>• **26.1 / 26.2** (Java 25) |
 | **Configuration GUI** | [Mod Menu](https://modrinth.com/mod/modmenu) (optional) or in-game command `/bopomofo` (or `/bopomofo-converter`) |
 
-![In-game chat demonstration showing the mouse cursor hovering over the first part of the gibberish text "zo t;62k7vup vu0", revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄒㄧㄣ ㄒㄧㄢ" meaning "very fresh"](https://raw.githubusercontent.com/flandretw/BopomofoConverter/master/docs/images/very_fresh.webp)
+![In-game chat demonstration showing the mouse cursor hovering over the first part of the gibberish text "zo t;62k7vup vu0", revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄒㄧㄣ ㄒㄧㄢ" meaning "very fresh"](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/very_fresh.webp)
 
-![In-game chat demonstration showing the mouse cursor hovering over the second part of the gibberish text "zo t;62k7ao3jo4" across the comma, revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄇㄟˇ ㄨㄟˋ" meaning "very delicious"](https://raw.githubusercontent.com/flandretw/BopomofoConverter/master/docs/images/very_delicious.webp)
+![In-game chat demonstration showing the mouse cursor hovering over the second part of the gibberish text "zo t;62k7ao3jo4" across the comma, revealing a translated Bopomofo hover tooltip "ㄈㄟ ㄔㄤˊㄉㄜ˙ㄇㄟˇ ㄨㄟˋ" meaning "very delicious"](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/very_delicious.webp)
 
 ## Features
 
 * **Strict Bopomofo Building-Block Algorithm**  
   Won't randomly translate normal English words like `hello` into `ㄘㄍㄠㄠㄟ`. Built-in syllable validation ensures only text matching the "Initial + Medial + Final + Tone" layout gets translated, leaving standard English conversations untouched.
 
-  ![Normal English word hello does not trigger translation](https://raw.githubusercontent.com/flandretw/BopomofoConverter/master/docs/images/hello.webp)
+  ![Normal English word hello does not trigger translation](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/hello.webp)
 
 * **Chat & Title Boundary Separation**  
   On servers that glue player titles directly to chat messages (like Hypixel's `[VIP] Flandre_tw:`), the mod cleanly separates the title from the message and only translates the gibberish portion.
 
-  ![Hypixel player rank title accurately separated from chat message](https://raw.githubusercontent.com/flandretw/BopomofoConverter/master/docs/images/hypixel.webp)
+  ![Hypixel player rank title accurately separated from chat message](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/hypixel.webp)
 
 * **CapsLock & Full-Width Handling**  
   Accidentally typed "想啊！很想啊！" (`VU;387！CP3VU;387！`) with CapsLock on, or full-width "想" (`ＶＵ；３`)? The mod silently normalizes characters into half-width lowercase to resolve "想" (`ㄒㄧㄤˇ`), while keeping full-width punctuation marks intact.
 
-  ![CapsLock uppercase text automatically normalized and translated](https://raw.githubusercontent.com/flandretw/BopomofoConverter/master/docs/images/miss.webp)
+  ![CapsLock uppercase text automatically normalized and translated](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/miss.webp)
 
 * **Punctuation & Multi-Word Segmentation**  
   Words adjacent to full-width punctuation won't shatter syllables. Mixed sentences containing Chinese, punctuation, and multiple Bopomofo phrases—such as "你是一個，一個一個一個" (`su3g4u6ek7，u6ek7u6ek7u6ek7`)—are parsed independently with punctuation preserved.
 
-  ![Punctuation and multiple Bopomofo phrases independently parsed](https://raw.githubusercontent.com/flandretw/BopomofoConverter/master/docs/images/you_are_a_a_a_a.webp)
+  ![Punctuation and multiple Bopomofo phrases independently parsed](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/you_are_a_a_a_a.webp)
 
 * **Rapid-Typing Tone Correction**  
   Typing too fast can cause the tone key to land before the vowel, such as typing "只有紅茶可以嗎" (`53u.3cj/6t86dk3u3a87`) mistakenly as `53u3.cj/6t86dk3u3a87` (pressed `3` before `.`).
@@ -58,7 +58,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
   - **Zero-Initial Syllables**: Supports syllables without initials like "有" (`u3.` -> `u.3`), even in continuous typing without spaces.
   - **Safety Guard**: Employs negative lookaheads to only shift tones when the syllable does not already have one, avoiding accidental corruption of adjacent words.
 
-  ![Early tone key press automatically reordered and translated](https://raw.githubusercontent.com/flandretw/BopomofoConverter/master/docs/images/only_black_tea_right.webp)
+  ![Early tone key press automatically reordered and translated](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/only_black_tea_right.webp)
 
 ## Setup & Installation
 
@@ -68,7 +68,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
 4. Customize appearance anytime:  
    Open settings via [Mod Menu](https://modrinth.com/mod/modmenu), or type `/bopomofo` (or `/bopomofo-converter`) in chat. Supports custom colors, bold/italic/underline style previews, and a reset button.
 
-![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](https://raw.githubusercontent.com/flandretw/BopomofoConverter/master/docs/images/menu.webp)
+![In-game settings configuration screen demonstrating custom color, bold, italic, and underline options](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/menu.webp)
 
 ## AI Disclosure & Transparency
 
@@ -89,4 +89,4 @@ A: Yes, it processes all messages in the chat HUD, including your own.
 **Links & License**  
 * Source Code: [GitHub Repository](https://github.com/flandretw/BopomofoConverter)
 * Issue Tracker: [GitHub Issues](https://github.com/flandretw/BopomofoConverter/issues)
-* License: [MIT License](https://github.com/flandretw/BopomofoConverter/blob/master/LICENSE)
+* License: [MIT License](https://github.com/flandretw/BopomofoConverter/blob/main/LICENSE)
