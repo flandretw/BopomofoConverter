@@ -71,7 +71,7 @@ public class BopomofoConverter {
         STRICT_PATTERN = Pattern.compile("^(?:" + C_PART + T_PART + ")*(?:" + C_PART + T_PART + "?)$");
     }
 
-    private static final Pattern DELIMITER_PATTERN = Pattern.compile("[^a-zA-Z0-9,\\.\\/;\\-\\s]+");
+    private static final Pattern DELIMITER_PATTERN = Pattern.compile("(?:§[0-9a-fk-orA-FK-OR]|[^a-zA-Z0-9,\\.\\/;\\-\\s§]|§(?![0-9a-fk-orA-FK-OR]))+");
 
     public static class BopomofoResult {
         public final boolean changed;
@@ -219,27 +219,32 @@ public class BopomofoConverter {
 
     static String tryTranslate(String text) {
         if (text == null || text.trim().isEmpty()) return null;
+        if (text.length() < 2) return null;
         String lowered = text.toLowerCase();
         String fixed = fixInvertedTone(lowered);
         boolean hasIndicator = fixed.matches(".*[0-9,\\.\\/;\\-].*");
-        if (STRICT_PATTERN.matcher(fixed).matches() && (hasIndicator || fixed.length() > 1)) {
-            if (allSyllablesValid(fixed)) {
+        if (STRICT_PATTERN.matcher(fixed).matches()) {
+            if (allSyllablesValid(fixed, hasIndicator)) {
                 return translateFully(fixed);
             }
         }
         return null;
     }
 
-    static boolean allSyllablesValid(String text) {
+    static boolean allSyllablesValid(String text, boolean hasIndicator) {
         Pattern p = Pattern.compile(C_PART + T_PART + "?");
         java.util.regex.Matcher m = p.matcher(text);
         int lastEnd = 0;
+        int count = 0;
         while (m.find()) {
             if (m.start() != lastEnd) return false;
             if (!isSyllableValid(m.group())) return false;
             lastEnd = m.end();
+            count++;
         }
-        return lastEnd == text.length();
+        if (lastEnd != text.length()) return false;
+        if (!hasIndicator && count < 2) return false;
+        return true;
     }
 
     private static boolean isSyllableValid(String s) {
@@ -276,6 +281,12 @@ public class BopomofoConverter {
 
         // Non-sibilant initials (i.e. not ㄓㄔㄕㄖㄗㄘㄙ) cannot stand alone without medial or final
         if (initial != 0 && medial == 0 && finalChar == 0 && "5tgbyhn".indexOf(initial) == -1) return false;
+
+        // EI (o) without medial cannot follow T (w), K (d), CH (t), R (b), C (h), S (n)
+        if (finalChar == 'o' && medial == 0 && "wdtbhn".indexOf(initial) != -1) return false;
+
+        // O (i) without medial can only follow B (1), P (q), M (a), F (z), or zero-initial
+        if (finalChar == 'i' && medial == 0 && initial != 0 && "1qaz".indexOf(initial) == -1) return false;
 
         return true;
     }

@@ -216,4 +216,49 @@ public class BopomofoConverterTest {
         assertEquals("）", res.segments.get(4).original);
         assertNull(res.segments.get(4).translated);
     }
+
+    @Test
+    public void testMinecraftFormattingCodesAndServerMessages() {
+        String input1 = "§7你獲得了 §d6 點經驗值\n§7你收割了 §b8 個戰魂";
+        BopomofoConverter.BopomofoResult res1 = BopomofoConverter.convert(input1);
+        assertFalse(res1.changed, "input1 should not be changed!");
+
+        String input2 = "§b[MVP§0+§b] Player§f§6 加入了大廳！";
+        BopomofoConverter.BopomofoResult res2 = BopomofoConverter.convert(input2);
+        assertFalse(res2.changed, "input2 should not be changed!");
+
+        String input3 = "Click to view the stats of your §bSkyWars§e game!";
+        BopomofoConverter.BopomofoResult res3 = BopomofoConverter.convert(input3);
+        assertFalse(res3.changed, "input3 should not be changed!");
+
+        String input4 = "§a§l▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n§f                            §f§lReward Summary\n\n   §7You earned\n§f     • §61,218 SkyWars Coins\n§f     • §3132 Hypixel Experience\n§f     • §2517 Guild Experience\n\n§7你獲得了 §d6 點經驗值\n§7你收割了 §b8 個戰魂\n\n§a§l▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬";
+        BopomofoConverter.BopomofoResult res4 = BopomofoConverter.convert(input4);
+        assertFalse(res4.changed, "input4 should not be changed!");
+    }
+
+    @Test
+    public void testToneOneMultiSyllablePhrases() {
+        String input1 = "貓咪（al au） ";
+        BopomofoConverter.BopomofoResult res1 = BopomofoConverter.convert(input1);
+        assertTrue(res1.changed);
+        assertEquals(4, res1.segments.size());
+        assertEquals("貓咪（", res1.segments.get(0).original);
+        assertNull(res1.segments.get(0).translated);
+        assertEquals("al au", res1.segments.get(1).original);
+        assertEquals("ㄇㄠ ㄇㄧ", res1.segments.get(1).translated);
+        assertEquals("）", res1.segments.get(2).original);
+        assertNull(res1.segments.get(2).translated);
+        assertEquals(" ", res1.segments.get(3).original);
+        assertNull(res1.segments.get(3).translated);
+
+        String input2 = "al au";
+        BopomofoConverter.BopomofoResult res2 = BopomofoConverter.convert(input2);
+        assertTrue(res2.changed);
+        assertEquals("ㄇㄠ ㄇㄧ", res2.segments.get(0).translated);
+
+        String input3 = "t u";
+        BopomofoConverter.BopomofoResult res3 = BopomofoConverter.convert(input3);
+        assertTrue(res3.changed);
+        assertEquals("ㄔ ㄧ", res3.segments.get(0).translated);
+    }
 }
