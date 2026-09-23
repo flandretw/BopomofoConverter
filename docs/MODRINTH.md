@@ -1,4 +1,4 @@
-# Bopomofo Converter - 注音轉換器
+# Bopomofo Converter
 
 > 🇹🇼 **中文使用者**：點此查看 [GitHub 臺灣正體中文說明](https://github.com/flandretw/BopomofoConverter/blob/main/README-zh_TW.md)  
 > (Traditional Chinese documentation is available on [GitHub](https://github.com/flandretw/BopomofoConverter/blob/main/README-zh_TW.md).)
@@ -12,9 +12,9 @@
 Do you often forget to switch to your Chinese input method on a server, sending out cryptic codes like `ji394su3`?  
 And then the chat gets flooded with `?`, forcing you to switch your keyboard and awkwardly re-type "I love you"?
 
-This mod leaves your original message intact for everyone to laugh at, while displaying **hover text with the converted Bopomofo** whenever you move your cursor over the gibberish.
+This mod leaves your original message intact for everyone to laugh at, while displaying hover text with the converted Bopomofo whenever you move your cursor over the gibberish.
 
-Best of all, **this is a purely client-side mod**. The server requires zero installation. You install it yourself, and you're good to go.
+Best of all, this is a purely client-side mod. The server requires zero installation. You install it yourself, and you're good to go.
 
 ### Requirements & Compatibility
 
@@ -52,11 +52,7 @@ Best of all, **this is a purely client-side mod**. The server requires zero inst
   ![Punctuation and multiple Bopomofo phrases independently parsed](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/you_are_a_a_a_a.webp)
 
 * **Rapid-Typing Tone Correction**  
-  Typing too fast can cause the tone key to land before the vowel, such as typing "只有紅茶可以嗎" (`53u.3cj/6t86dk3u3a87`) mistakenly as `53u3.cj/6t86dk3u3a87` (pressed `3` before `.`).
-  The syllable recovery mechanism handles this automatically:
-  - **Structural Reordering**: Recognizes key roles on the keyboard. When a tone key lands early (e.g. "紅" `cj6/` -> `cj/6`, "茶" `t68` -> `t86`, "可" `d3k` -> `dk3`), it shifts the tone to the end of the syllable before parsing.
-  - **Zero-Initial Syllables**: Supports syllables without initials like "有" (`u3.` -> `u.3`), even in continuous typing without spaces.
-  - **Safety Guard**: Employs negative lookaheads to only shift tones when the syllable does not already have one, avoiding accidental corruption of adjacent words.
+  Typing too fast can cause the tone key to land before the vowel (e.g., typing "有" mistakenly as `u3.` or "紅" as `cj6/`). The built-in syllable recovery automatically recognizes key roles on standard DaQian keyboards and shifts misplaced tones back to the end of the syllable. It seamlessly supports zero-initial syllables, continuous typing without spaces, and includes safety guards to ensure tones are only adjusted when a syllable lacks one, avoiding accidental corruption of adjacent words.
 
   ![Early tone key press automatically reordered and translated](https://raw.githubusercontent.com/flandretw/BopomofoConverter/main/docs/images/only_black_tea_right.webp)
 
@@ -79,7 +75,7 @@ This project is architected, maintained, and rigorously tested by a human develo
 ## FAQ
 
 **Q: Can players without this mod see the translations?**  
-A: Nope. This is a **purely client-side mod**. Translations happen locally on your machine. Those without it will remain confused.
+A: Nope. This is a purely client-side mod. Translations happen locally on your machine. Those without it will remain confused.
 
 **Q: Does it translate my own messages?**  
 A: Yes, it processes all messages in the chat HUD, including your own.
