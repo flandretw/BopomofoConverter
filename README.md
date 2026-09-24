@@ -49,7 +49,7 @@ Best of all, this is a purely client-side mod. The server requires zero installa
   ![Punctuation and multiple Bopomofo phrases independently parsed](docs/images/you_are_a_a_a_a.webp)
 
 * **Rapid-Typing Tone Correction**  
-  Typing too fast can cause the tone key to land before the vowel (e.g., typing "有" mistakenly as `u3.` or "紅" as `cj6/`). The built-in syllable recovery automatically recognizes key roles on standard DaQian keyboards and shifts misplaced tones back to the end of the syllable. It seamlessly supports zero-initial syllables, continuous typing without spaces, and includes safety guards to ensure tones are only adjusted when a syllable lacks one, avoiding accidental corruption of adjacent words.
+  When typing at terminal velocity, your fingers often race each other and slap down a tone key before the vowel (e.g. typing "有" mistakenly as `u3.` instead of `u.3`, or "紅" as `cj6/`). Built-in syllable recovery identifies key roles on standard DaQian keyboards and smoothly slides early tone keys back to the syllable's tail. It effortlessly rescues zero-initial syllables and frantic spaceless typing, armed with regex negative lookaheads to guarantee adjacent normal words are never messed with.
 
   ![Early tone key press automatically reordered and translated](docs/images/only_black_tea_right.webp)
 
