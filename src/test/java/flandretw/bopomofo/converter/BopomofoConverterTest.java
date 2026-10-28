@@ -261,4 +261,18 @@ public class BopomofoConverterTest {
         assertTrue(res3.changed);
         assertEquals("ㄔ ㄧ", res3.segments.get(0).translated);
     }
+
+    @Test
+    public void testFullWidthConversion() {
+        // Fullwidth letters and digits: ｊｉ３９４ｓｕ３ -> ji394su3 -> ㄨㄛˇㄞˋㄋㄧˇ
+        BopomofoConverter.BopomofoResult res = BopomofoConverter.convert("ｊｉ３９４ｓｕ３");
+        assertTrue(res.changed);
+        assertNotNull(res.segments);
+        assertEquals("ㄨㄛˇㄞˋㄋㄧˇ", res.segments.get(0).translated);
+
+        // Fullwidth space \u3000
+        BopomofoConverter.BopomofoResult resSpace = BopomofoConverter.convert("al\u3000au");
+        assertTrue(resSpace.changed);
+        assertEquals("ㄇㄠ ㄇㄧ", resSpace.segments.get(0).translated);
+    }
 }
